@@ -1,0 +1,119 @@
+@import '../../../css-settings/variables';
+@import '../../../css-settings/mixins';
+
+.hw-btn,
+.hw-btn:link,
+.hw-btn:visited {
+  @include resetLink($font-color);
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  &:disabled{
+      background-color: $font-color-input;
+      color: $font-color;
+      cursor: not-allowed;
+  }
+  
+}
+
+.hw-btn {
+  &--transitioned{
+    transition: all .2s;
+  }
+
+  &--medium-font{
+    font-size: $medium-font;
+  }
+
+  &--transitioned:not(:disabled)::after{
+    content: '';
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+    &:disabled{
+      display: none;
+      border: 1px solid red;
+    }
+  }
+
+  &--transitioned:hover{
+    transform: translateY(-.4rem);
+    box-shadow: 0 1rem 2rem rgba(0,0,0, .2);
+  }
+
+  &--transitioned:hover::after{
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+  }
+
+  &--transitioned:active{
+    transform: translateY(-.1rem);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0, .2);
+  }
+
+  &--animated{
+    animation: moveInTop .8s ease-out .2s;
+    animation-fill-mode: backwards;
+  }
+
+  &--white{
+    background-color: $color-white;
+    color: $font-color;
+  }
+
+  &--green{
+    background-color: $light_green;
+    color: $color-white !important;
+  }
+
+  &--white::after{
+    background-color: white;
+  }
+
+  &--green:after{
+    background-color: $light_green;
+  }
+
+  &--medium-padding{
+    padding: 1.5rem 4rem;
+  }
+
+  &--border-radius{
+    border-radius: 10rem;
+  }
+
+  &--border-radius::after{
+    border-radius: 10rem;
+  }
+}
+
+.hw-btn-text{
+  &:link,
+  &:visited{
+    display: inline-block;
+    border-bottom: 2px solid $medium_green;
+    padding: 3px;
+    font-weight: 700;
+    color: $medium_green;
+    text-decoration: none;
+    font-size: $medium-font;
+    transition: all .2s;
+  }
+
+  &:hover{
+    background-color: $medium_green;
+    color: white !important;
+    box-shadow: 0 1rem 2rem rgba(0,0,0, .15);
+    transform: translateY(-2px);
+  }
+
+  &:active{
+    box-shadow: 0 .5rem 1rem rgba(0,0,0, .15);
+    transform: translateY(0);
+  }
+}

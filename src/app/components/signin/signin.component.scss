@@ -1,0 +1,58 @@
+@import '../../../css-settings/variables';
+@import '../../../css-settings/mixins';
+.hw-signin{
+  font-size: $medium-font;
+
+  &__title{
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    font-size: $big-font;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: $dark_green;
+    letter-spacing: 2px;
+    animation: moveInTop .5s;
+  }
+
+  &__alert{
+    display: block;
+    font-weight: 700;
+    color: $error_color;
+
+  }
+
+  &__form-group{
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  &__form-group:nth-child(even){
+    animation: moveInRight .5s;
+  }
+  &__form-group:nth-child(odd){
+    animation: moveInLeft .5s;
+  }
+
+  &__label{
+    text-transform: uppercase;
+    margin-right: 1rem;
+  }
+
+  &__username, &__password{
+    @include reset-text-input(3px, 1rem, 1.4rem);
+    &::-webkit-input-placeholder {
+      color: $font-color-input;
+    }
+    &.ng-invalid.ng-dirty{
+      border-bottom: 3px solid $error_color;
+    }
+    &.ng-valid{
+      border-bottom: 3px solid $dark_green;
+    }
+  }
+
+  //&--animated{
+  //  animation: moveInBottom .4s;
+  //}
+}

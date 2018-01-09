@@ -1,0 +1,18 @@
+/**
+ * Vendor styles go here
+ **/
+
+@import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+
+/**
+ * Settings go here
+ **/
+@import 'variables';
+@import 'reset';
+@import './mixins';
+@import './animations';
+@import './util';
+@import 'global-styles';
+@import 'containers';
+@import './../assets/font-awesome-4.7.0/css/font-awesome.min.css';
+

@@ -1,0 +1,62 @@
+@mixin button($padding-vertical, $padding-horizontal) {
+  padding: $padding-vertical $padding-horizontal;
+  cursor: pointer;
+}
+
+@mixin submit-button($innerColor) {
+  @include button(5px 25px);
+  color: $innerColor;
+  background-color: #289b39;
+  border: 1px solid #e3fce6;
+}
+
+@mixin cancel-button($innerColor) {
+  @include button(5px 10px);
+  color: $innerColor;
+  background-color: #fc3232;
+  border: 1px solid #f9efef;
+}
+
+@mixin clearFix {
+  &::after{
+    content: "";
+    clear: both;
+    display: block;
+  }
+}
+
+@mixin resetLink($color) {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: $color;
+}
+
+@mixin center-text(){
+  text-align: center;
+}
+
+@mixin flex-row(){
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+@mixin flex-column(){
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+
+
+@mixin reset-text-input($border-radius, $padding-vertical, $padding-horizontal){
+  -webkit-border-radius: $border-radius;
+  -moz-border-radius: $border-radius;
+  border-radius: $border-radius;
+  padding: $padding-vertical $padding-horizontal;
+  border: none;
+  &:focus{
+    outline: none;
+  }
+}
+

@@ -1,0 +1,14 @@
+.contact-list {
+    padding: 10px;
+    border: 1px solid #EFEFEF;
+    background: #fff;
+
+    &__hello{
+        font-size: 3rem;
+        font-weight: 700;
+    }
+    &__subhello{
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+}
