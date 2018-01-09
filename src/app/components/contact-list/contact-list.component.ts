@@ -5,7 +5,7 @@ import './contact-list.component.scss';
 
 class ContactListController {
   contacts: { name: string }[];
-  username: string = this.$stateParams['name'];
+  username: string = this.$stateParams['name'] || 'defaultName';
   contactRemoved: ($event: { $event: { id: number }}) => void;
   constructor(
     private $stateParams: ng.ui.IStateParamsService

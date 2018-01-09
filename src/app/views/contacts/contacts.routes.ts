@@ -13,6 +13,12 @@ export const routing = ($stateProvider: angular.ui.IStateProvider) => {
 
     .state('contacts', {
       parent: 'app',
+      url: '/contact?name',
+      component: ContactsContainer.selector
+    })
+
+    .state('contact', {
+      parent: 'app',
       url: '/contact/:name',
       component: ContactsContainer.selector
     });
