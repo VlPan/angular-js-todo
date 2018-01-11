@@ -1,14 +1,25 @@
 import { ContactsService } from '../../services/contacts.service';
+import { UserService } from '../../services/users.service';
+import * as angular from 'angular';
+
 
 class AddContactController {
 
   constructor(
       private contactsService: ContactsService,
-      private $state: angular.ui.IStateService
+      private $state: angular.ui.IStateService,
+      private userService: UserService,
+      private $location: ng.ILocationService, 
   ) {
     'ngInject';
   }
 
+  $onInit(){
+    if(!this.userService.getUserName()){
+      alert('You should authorize first!');
+      this.$location.url('/app/signin');
+    }
+  }
   add(contact: { lastName: string, firstName: string })  {
     this.contactsService.add(contact);
     this.$state.go('contacts');

@@ -21,11 +21,11 @@ class ContactListController {
 
 
   $onInit() {
-    // this.username = this.userService.getUserName();
-    // if(!this.username){
-    //   alert('You should authorize first!');
-    //   this.$location.url('/app/signin');
-    // }
+    this.username = this.userService.getUserName();
+    if(!this.username){
+      alert('You should authorize first!');
+      this.$location.url('/app/signin');
+    }
   }
 
   remove(contact: { id: number }) {

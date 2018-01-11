@@ -4,12 +4,13 @@ import { ContactsService } from '../../services/contacts.service';
  * Import the Component styles
  */
 import './contacts.container.scss';
+import { UserService } from '../../services/users.service';
 
 class ContactsController {
   contacts: { id: number, firstName: string, lastName: string }[];
 
   constructor(
-      private contactsService: ContactsService
+      private contactsService: ContactsService,
   ) {
       'ngInject';
     }
@@ -17,6 +18,8 @@ class ContactsController {
   $onInit() {
     this.fetchData();
   }
+
+
 
   remove(id: number) {
     this.contactsService.remove(id);
