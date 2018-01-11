@@ -15,12 +15,12 @@ import { SignIn } from '../../components/signin/signin.component';
 /**
  * Import Module Services
  */
-
-
+import { UserService } from '../../services/users.service';
 /**
  * Import Module Routing
  */
 import { routing } from './signin.routes';
+
 
 export const moduleName =
     angular.module('application.signin', [
@@ -35,9 +35,12 @@ export const moduleName =
         /**
          * Register Module Containers
          */
+        
         /**
          * Register Module Services
          */
+
+        .service(UserService.selector, UserService)
 
         /**
          * Register Module Configuration

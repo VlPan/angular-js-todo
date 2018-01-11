@@ -17,11 +17,13 @@ import { AddContactContainer } from '../../components/add-contact/add-contact.co
  * Import Module Services
  */
 import { ContactsService } from '../../services/contacts.service';
+import { UserService } from '../../services/users.service';
 
 /**
  * Import Module Routing
  */
 import { routing } from './contacts.routes';
+
 
 export const moduleName =
   angular.module('application.contacts', [
@@ -44,6 +46,7 @@ export const moduleName =
    * Register Module Services
    */
   .service(ContactsService.selector, ContactsService)
+  .service(UserService.selector, UserService)
 
   /**
    * Register Module Configuration
