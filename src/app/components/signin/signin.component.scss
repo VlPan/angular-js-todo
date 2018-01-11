@@ -1,5 +1,6 @@
 @import '../../../css-settings/variables';
 @import '../../../css-settings/mixins';
+
 .hw-signin{
   font-size: $medium-font;
 
@@ -51,8 +52,4 @@
       border-bottom: 3px solid $dark_green;
     }
   }
-
-  //&--animated{
-  //  animation: moveInBottom .4s;
-  //}
 }

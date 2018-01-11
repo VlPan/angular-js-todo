@@ -32,12 +32,4 @@ export class ContactList implements angular.IComponentOptions {
   };
   static controller = ContactListController;
   static template = require('./contact-list.component.html');
-  // static template = `
-  // <div class="contact-list" ng-repeat="contact in $ctrl.contacts">
-  //   <span>{{ contact.firstName }} {{ contact.lastName }}</span>
-  //   <a href="" ng-click="$ctrl.remove(contact)">
-  //     <i class="pull-right glyphicon glyphicon-remove"></i>
-  //   </a>
-  // </div>
-  // `;
 }
