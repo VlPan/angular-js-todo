@@ -91,29 +91,3 @@
     border-radius: 10rem;
   }
 }
-
-.hw-btn-text{
-  &:link,
-  &:visited{
-    display: inline-block;
-    border-bottom: 2px solid $medium_green;
-    padding: 3px;
-    font-weight: 700;
-    color: $medium_green;
-    text-decoration: none;
-    font-size: $medium-font;
-    transition: all .2s;
-  }
-
-  &:hover{
-    background-color: $medium_green;
-    color: white !important;
-    box-shadow: 0 1rem 2rem rgba(0,0,0, .15);
-    transform: translateY(-2px);
-  }
-
-  &:active{
-    box-shadow: 0 .5rem 1rem rgba(0,0,0, .15);
-    transform: translateY(0);
-  }
-}

@@ -3,19 +3,36 @@
             <h2 class="hw-signin__title">login</h2>
             <div class="hw-signin__form-group">
                   <label for="username" class="hw-signin__label">username</label>
-                  <input type="text" name="username" id="username" class="hw-signin__username" placeholder="username" ng-model="username" required minlength="6">
-                  <span class="hw-signin__alert" ng-show="myForm.username.$touched && myForm.username.$invalid">The NAME is required. At least 6 characters long
+                  <input type="text"
+                         name="username"
+                         id="username"
+                         class="hw-signin__username"
+                         placeholder="username"
+                         ng-model="username"
+                         minlength="6"
+                         required
+                  >
+                  <span class="hw-signin__alert"
+                        ng-show="myForm.username.$touched && myForm.username.$invalid">The NAME is required. At least 6 characters long
                   </span>
             </div>
             <div class="hw-signin__form-group">
                   <label for="password" class="hw-signin__label">password</label>
-                  <input type="password" name="password" id="password" class="hw-signin__password" placeholder="password" ng-model="password" 
+                  <input type="password"
+                         name="password"
+                         id="password"
+                         class="hw-signin__password"
+                         placeholder="password"
+                         ng-model="password"
                         pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
                         required
                         >
-                  <span ng-show="myForm.password.$touched && myForm.password.$invalid" class="hw-signin__alert">The PASSWORD is required. Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter and one number.
+                  <span ng-show="myForm.password.$touched && myForm.password.$invalid"
+                        class="hw-signin__alert">
+                        The PASSWORD is required. Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter and one number.
                   </span>
-                  <span ng-show="myForm.password.$touched && myForm.password.$minlength" class="hw-signin__alert">Password should be 8 charaters long!
+                  <span ng-show="myForm.password.$touched && myForm.password.$minlength"
+                        class="hw-signin__alert">Password should be 8 charaters long!
                   </span>
             </div>
             <div class="u-center-text">
