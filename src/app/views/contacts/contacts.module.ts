@@ -23,6 +23,7 @@ import { UserService } from '../../services/users.service';
  * Import Module Routing
  */
 import { routing } from './contacts.routes';
+import { LocalStorage } from '../../services/LS.service';
 
 
 export const moduleName =
@@ -47,6 +48,7 @@ export const moduleName =
    */
   .service(ContactsService.selector, ContactsService)
   .service(UserService.selector, UserService)
+  .service(LocalStorage.selector, LocalStorage)
 
   /**
    * Register Module Configuration
