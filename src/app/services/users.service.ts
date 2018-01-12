@@ -1,32 +1,57 @@
+import { LocalStorageService } from './LocalStorage.service';
+import { User } from '../models/User';
+import {Todo} from '../models/Todo';
+import { TodoService } from './todo.service';
+
 export class UserService {
     static selector = 'userService';
-    private userName: string;
-    private userEmail: string = 'default';
+    private user: User;
     
     constructor (
-        private $q: angular.IQService
+        private $q: angular.IQService,
+        private localStorage: LocalStorageService,
     ){
         'ngInject';
     }
 
-    signin (name: string, email?:string): void {
-        this.userName = name;
-        this.userEmail = email || 'Default Email';
+    signin (name: string, password: string, email?:string): void {
+        let users = this.localStorage.get('users');
+        if(!users){
+            this.localStorage.set('users', []);
+            users = [];
+        }
+
+        this.user = users.find((user: User)=>{
+            return user.name === name && user.password === password;
+        });
+
+        if(!this.user){
+            this.user = new User(name, email, password);
+            this.user = this.addTodoListToUser(this.user, []);
+            users = users.concat(this.user);
+            this.localStorage.set('users', users);
+        }
+        
     }
 
     signout () {
-        this.userName = null;
-        this.userEmail = null;
+        this.user.name = null;
+        this.user.password = null;
     }
 
+    getUser():User{
+        return this.user;
+    }
+
+    isAuthorized(){
+        return this.user ? true : false;
+    }
     getUserInfo(): string {
-        return this.userName + ' ' + this.userEmail;
+        return this.user.name + ' ' + this.user.password;
     }
-
-    getUserName(): string {
-        return this.userName;
-    }
-    getUserEmail(): string {
-        return this.userEmail;
+    
+    addTodoListToUser(user:User, todos:Todo[]){
+        user.todos = todos;
+        return user;
     }
 }

@@ -1,0 +1,13 @@
+<h1 class="todo-list__hello">Hello {{$ctrl.username}}</h1> 
+<h2 class="todo-list__subhello">You can add new contacts in your address book!</h2>
+
+<div class="todo-list" ng-repeat="todo in $ctrl.todos track by todo.id">
+   <span>{{ todo.name }} {{ todo.body }}</span>
+   <a href="" ng-click="$ctrl.remove(todo)">
+      <i class="pull-right glyphicon glyphicon-remove"></i>
+   </a>
+
+   <a href="" ng-click="$ctrl.resolve(todo)">
+       resolve!
+   </a>
+</div>

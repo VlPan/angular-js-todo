@@ -1,4 +1,4 @@
-export class LocalStorage{
+export class LocalStorageService{
     static selector = 'localStorage';
 
     constructor(

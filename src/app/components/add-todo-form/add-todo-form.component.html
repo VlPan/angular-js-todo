@@ -1,0 +1,12 @@
+<form name="addContactForm" ng-submit="$ctrl.submit()" novalidate>
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" class="form-control" ng-model="$ctrl.name" placeholder="Name of Todo" required>
+  </div>
+  <div class="form-group">
+    <label>Body</label>
+    <input type="text" class="form-control" ng-model="$ctrl.body" placeholder="Body of todo" required>
+  </div>
+  <button class="btn btn-primary btn-block" type="submit" ng-disabled="addTodoForm.$invalid">Add</button>
+</form>
+

@@ -18,15 +18,11 @@ export const moduleName =
       'ui.router'
   ])
 
-  /**
-   * Register Module Components
-   */
+
   .component(App.selector, App)
   .component(Root.selector, Root)
 
-  /**
-   * Register Module Configuration
-   */
+
   .config(configuration)
   .config(routing)
   .name;

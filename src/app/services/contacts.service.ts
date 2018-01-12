@@ -1,11 +1,11 @@
-import { LocalStorage } from './LS.service';
+import { LocalStorageService } from './LocalStorage.service';
 export class ContactsService {
   static selector = 'contactsService';
   contacts: { id: number, lastName: string, firstName: string }[] = this.localStorage.get('contacts') || [];
 
   constructor(
       private $q: angular.IQService,
-      private localStorage: LocalStorage
+      private localStorage: LocalStorageService
   ) {
     'ngInject';
   }

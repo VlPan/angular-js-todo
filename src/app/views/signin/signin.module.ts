@@ -27,23 +27,10 @@ export const moduleName =
         'ui.router'
     ])
 
-    /**
-     * Register Module Components
-     */
+ 
         .component(SignIn.selector, SignIn)
 
-        /**
-         * Register Module Containers
-         */
-        
-        /**
-         * Register Module Services
-         */
-
         .service(UserService.selector, UserService)
-
-        /**
-         * Register Module Configuration
-         */
+        
         .config(routing)
         .name;

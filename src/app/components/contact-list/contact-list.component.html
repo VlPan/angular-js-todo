@@ -1,9 +1,0 @@
-<h1 class="contact-list__hello">Hello {{$ctrl.username}}</h1> 
-<h2 class="contact-list__subhello">You can add new contacts in your address book!</h2>
-
-<div class="contact-list" ng-repeat="contact in $ctrl.contacts">
-   <span>{{ contact.firstName }} {{ contact.lastName }}</span>
-   <a href="" ng-click="$ctrl.remove(contact)">
-      <i class="pull-right glyphicon glyphicon-remove"></i>
-   </a>
-</div>

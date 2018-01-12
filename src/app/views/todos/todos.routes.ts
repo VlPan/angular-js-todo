@@ -8,12 +8,12 @@ export const routing = ($stateProvider: angular.ui.IStateProvider) => {
     .state('add-todo', {
       parent: 'app',
       url: '/todo/add',
-      component: AddContactContainer.selector
+      component: AddTodoContainer.selector
     })
 
     .state('todos', {
       parent: 'app',
-      url: '/todos',
+      url: '/todo',
       component: TodosContainer.selector
     });
 

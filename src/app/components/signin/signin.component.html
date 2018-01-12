@@ -37,7 +37,6 @@
             </div>
             <div class="u-center-text">
                   <button type="button"
-                        href="/#/app/contacts"
                         class="hw-btn
                         hw-btn--transitioned
                         hw-btn--green
@@ -45,15 +44,9 @@
                         hw-btn--border-radius
                         hw-btn--animated
                         hw-btn--medium-font"
-                        ng-click="$ctrl.submit(myForm.username.$viewValue)"
+                        ng-click="$ctrl.submit(myForm.username.$viewValue, myForm.password.$viewValue)"
                         ng-disabled="myForm.$invalid">login</button>
             </div>
 
       </form>
 </div>
-
-<p>The input's valid state is:</p>
-Username:
-<h1>{{myForm.username.$valid}}</h1>
-Password:
-<h1>{{myForm.password.$valid}}</h1>
