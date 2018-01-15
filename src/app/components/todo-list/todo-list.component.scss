@@ -1,14 +1,102 @@
+@import './../../../css-settings/variables';
+@import './../../../css-settings/mixins';
+@import './../../../css-settings/animations';
+
 .todo-list {
     padding: 10px;
+    font-size: $medium-font;
     border: 1px solid #EFEFEF;
     background: #fff;
+    opacity: 1;
+    transform: translateY(0);
+    transition: all .4s;
+    
 
-    &__hello{
-        font-size: 3rem;
+    &--resolved{
+        background-color: rgba($grey-hr, .7); 
+    }
+
+    &--move-in-right{
+        animation: moveInRight .4s;
+    }
+
+    &--move-in-left{
+        animation: moveInLeft .4s;
+    }
+
+    &--move-in-top{
+        opacity: 0;
+        transform: translateY(-2rem);
+    }
+
+    &--move-in-bottom{
+        opacity: 0;
+        transform: translateY(2rem);
+    }
+    
+    &__flex-row{
+        @include flex-row;
+        padding: 0 1.5rem;
+        width: 100%;
+    }
+
+    &__name{
         font-weight: 700;
     }
-    &__subhello{
-        font-size: 1.5rem;
+
+    &__right{
+        @include flex-row;
+        align-items: center;
+        margin-left: auto;
+    }
+
+    &__show-body, &__delete{
+        height: 3rem;
+        width: 3rem;
+        background-color: $dark_green_opacity;
+        border-radius: 50%;
+        transition: all .3s;
+        cursor: pointer;
+
+        &:hover{
+            transform: scale(1.25);
+        }
+    }
+
+    &__delete{
+        margin-left: 1.5rem;
+        background-color: $color-secondary-dark;
+    }
+
+    &__fake-checkbox{
+        display: none;
+    }
+
+    &__fake-checkbox:checked + &__body{
+        visibility: visible;
+        height: auto;
+        opacity: 1;
+        padding: 1.5rem;
+        margin: 2rem;
+    }
+
+    &__body{
+        padding: 0;
+        margin: 0;
+        border-radius: 5px;
+        text-align: center;
+        border: 3px solid $grey-hr;
+        font-size: $big-font;
+        visibility: hidden;
+        height: 0;
+        opacity: 0;
+        transition: all .3s;
+    }
+
+   
+
+    &__date{
         font-weight: 700;
+        margin-right: 2rem;
     }
 }

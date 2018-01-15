@@ -5,7 +5,9 @@
   </div>
   <div class="form-group">
     <label>Body</label>
-    <input type="text" class="form-control" ng-model="$ctrl.body" placeholder="Body of todo" required>
+    <textarea type="text" class="form-control" ng-model="$ctrl.body" placeholder="Body of todo" rows="10" required>
+      
+    </textarea>
   </div>
   <button class="btn btn-primary btn-block" type="submit" ng-disabled="addTodoForm.$invalid">Add</button>
 </form>

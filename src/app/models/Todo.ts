@@ -1,9 +1,9 @@
 export class Todo {
-    id: number
+    id: number;
     name:string;
     body:string;
     resolved: boolean;
-    creationDate: Date;
+    creationDate: number;
 
     constructor(id:number, name:string, body: string){
         this.id = id;

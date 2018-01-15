@@ -1,11 +1,11 @@
 import { LocalStorageService } from './LocalStorage.service';
 import { User } from '../models/User';
 import {Todo} from '../models/Todo';
-import { TodoService } from './todo.service';
 
 export class UserService {
     static selector = 'userService';
     private user: User;
+    private userWithTodo: {name: string, password: string, todos: Todo[]};
     
     constructor (
         private $q: angular.IQService,
@@ -14,44 +14,45 @@ export class UserService {
         'ngInject';
     }
 
-    signin (name: string, password: string, email?:string): void {
+    signin (name: string, password: string): void {
         let users = this.localStorage.get('users');
         if(!users){
-            this.localStorage.set('users', []);
+            this.localStorage.set('users', []); // if no users create one
             users = [];
         }
 
-        this.user = users.find((user: User)=>{
-            return user.name === name && user.password === password;
+        this.userWithTodo = users.find((user: User)=>{
+            return user.name === name && user.password === password; // if there is user in users fetch him
         });
 
-        if(!this.user){
-            this.user = new User(name, email, password);
-            this.user = this.addTodoListToUser(this.user, []);
-            users = users.concat(this.user);
+
+        if(!this.userWithTodo){
+            this.user = new User(name, password);
+            this.userWithTodo = this.addTodoListToUser(this.user, []);
+            users = users.concat(this.userWithTodo);
             this.localStorage.set('users', users);
         }
         
     }
 
     signout () {
-        this.user.name = null;
-        this.user.password = null;
+        this.userWithTodo = null;
     }
 
-    getUser():User{
-        return this.user;
+    getUserWithTodoName(){
+        return this.userWithTodo.name;
     }
+
+    getUserWithTodo():{ name: string; password: string; todos: Todo[] }{
+            return this.userWithTodo;
+    }
+
 
     isAuthorized(){
-        return this.user ? true : false;
-    }
-    getUserInfo(): string {
-        return this.user.name + ' ' + this.user.password;
+        return !!this.userWithTodo;
     }
     
-    addTodoListToUser(user:User, todos:Todo[]){
-        user.todos = todos;
-        return user;
+    private addTodoListToUser(user: User, todos:Todo[]) : {name: string, password: string, todos: Todo[]}{
+        return {name: user.name, password: user.password, todos: todos};
     }
 }

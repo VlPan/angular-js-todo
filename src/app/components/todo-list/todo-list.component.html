@@ -1,13 +1,68 @@
-<h1 class="todo-list__hello">Hello {{$ctrl.username}}</h1> 
-<h2 class="todo-list__subhello">You can add new contacts in your address book!</h2>
+<div class="hw-todos__title">Active:</div>
 
-<div class="todo-list" ng-repeat="todo in $ctrl.todos track by todo.id">
-   <span>{{ todo.name }} {{ todo.body }}</span>
-   <a href="" ng-click="$ctrl.remove(todo)">
-      <i class="pull-right glyphicon glyphicon-remove"></i>
-   </a>
 
-   <a href="" ng-click="$ctrl.resolve(todo)">
-       resolve!
-   </a>
+<div class="todo-list todo-list--move-in-left"
+      ng-repeat="todo in $ctrl.unresolvedTodos track by todo.id"
+      ng-class="{'todo-list--move-in-top': $ctrl.layoutService.todoIsDeleting}">
+      <div class="todo-list__flex-row">
+            <div class="todo-list__name">
+                  {{todo.name}}
+            </div>
+
+            <div class="todo-list__right">
+                  <div class="todo-list__date">
+                        {{todo.creationDate | date:'dd.MM.y'}}
+                  </div>
+
+                  <label for="toggle_body-{{todo.id}}" class="todo-list__show-body"></label>
+                  <button class="todo-list__delete" ng-click="$ctrl.remove(todo)"></button>
+            </div>
+      </div>
+
+      <input type="checkbox" class="todo-list__fake-checkbox" id="toggle_body-{{todo.id}}"> 
+      <div class="todo-list__body">
+            {{todo.body}}
+      </div>
+
+      <div class="u-center-text">
+            <button type="button" class="hw-btn
+                  hw-btn--transitioned
+                  hw-btn--green
+                  hw-btn--medium-padding
+                  hw-btn--border-radius
+                  hw-btn--animated
+                  hw-btn--medium-font" ng-click="$ctrl.resolve(todo)" ng-disabled="myForm.$invalid">Done
+            </button>
+      </div>
+</div>
+
+
+
+
+
+<div class="hw-todos__title">Resolved:</div>
+<div class="todo-list todo-list--resolved todo-list--move-in-right" 
+      ng-repeat="todo in $ctrl.resolvedTodos track by todo.id"
+      ng-class="{'todo-list--move-in-bottom': $ctrl.layoutService.todoIsDeleting}">
+      <div class="todo-list__flex-row">
+            <div class="todo-list__name">
+                  {{todo.name}}
+            </div>
+
+            <div class="todo-list__right">
+                  <div class="todo-list__date">
+                        {{todo.creationDate | date:'dd.MM.y'}}
+                  </div>
+
+                  <label for="toggle_body-{{todo.id}}" class="todo-list__show-body"></label>
+                  <button class="todo-list__delete" ng-click="$ctrl.remove(todo)"></button>
+            </div>
+      </div>
+
+      <input type="checkbox" class="todo-list__fake-checkbox" id="toggle_body-{{todo.id}}"> 
+      <div class="todo-list__body">
+            {{todo.body}}
+      </div>
+
+
 </div>

@@ -1,17 +1,20 @@
+import { LayoutService } from './../../services/layout.service';
 
 import './todo-list.component.scss';
 
 import { UserService } from '../../services/users.service';
+import {Todo} from '../../models/Todo';
 
 class TodoListController {
-  todos: { name: string }[];
+  todos: Todo[];
+  resolvedTodos: Todo[];
+  unresolvedTodos: Todo[];
   username: string;
   todoRemoved: ($event: { $event: { id: number }}) => void;
   todoResolved: ($event: { $event: { id: number }}) => void;
   constructor(
-    private $stateParams: ng.ui.IStateParamsService,
     private userService: UserService,
-    private $location: ng.ILocationService, 
+    private layoutService: LayoutService
 ) {
     'ngInject';
   }
@@ -19,19 +22,22 @@ class TodoListController {
 
   $onInit() {
     if(this.userService.isAuthorized()){
-      this.username = this.userService.getUser().name;
+      this.username = this.userService.getUserWithTodo().name;
     }
+
   }
 
-  remove(todo: { id: number }) {
-    this.todoRemoved({
+  remove(todo: Todo) {
+    this.layoutService.deleteTodo(this.todoRemoved, {
       $event: {
           id: todo.id
       }
     });
   }
 
-  resolve(todo: { id: number }) {
+
+  resolve(todo: Todo) {
+    console.log('Resolved!!');
     this.todoResolved({
       $event: {
           id: todo.id
@@ -39,16 +45,21 @@ class TodoListController {
     });
   }
 
+
+
 }
 
-export class TodoList implements angular.IComponentOptions {
-  
+export class TodoListComponent implements angular.IComponentOptions {
+
   static selector = 'todoList';
   static bindings = {
-    todos: '<',
-    todoRemoved: '&',
-    todoResolved: '&'
+      todos: '<',
+      resolvedTodos: '<',
+      unresolvedTodos: '<',
+      todoRemoved: '&',
+      todoResolved: '&'
   };
   static controller = TodoListController;
   static template = require('./todo-list.component.html');
+
 }

@@ -71,12 +71,30 @@
     color: $color-white !important;
   }
 
+  &--red{
+    background-color: $error_color;
+    color: $color-white !important;
+  }
+
+  &--orange{
+    background-color: $color-secondary-dark;
+    color: $color-white !important;
+  }
+
   &--white::after{
     background-color: white;
   }
 
   &--green:after{
     background-color: $light_green;
+  }
+
+  &--orage:after{
+    background-color: $color-secondary-dark;
+  }
+
+  &--red::after{
+    background-color: $error_color;
   }
 
   &--medium-padding{

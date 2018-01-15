@@ -1,0 +1,25 @@
+<header class="hw-header">
+    <div class="hw-header__flex-row">
+        <div class="hw-header__title">
+            todo list
+        </div>  
+
+        <div class="hw-header__right">
+            <div class="hw-header__username">
+                    {{$ctrl.userName}}
+            </div>
+
+            <button type="button"
+            class="hw-btn
+            hw-btn--transitioned
+            hw-btn--red
+            hw-btn--medium-padding
+            hw-btn--border-radius
+            hw-btn--animated
+            hw-btn--medium-font"
+            ng-click="$ctrl.signout()"
+            ng-disabled="myForm.$invalid">log out</button>
+        </div>
+    </div>
+</header>
+

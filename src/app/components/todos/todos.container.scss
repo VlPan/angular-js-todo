@@ -1,6 +1,32 @@
+@import './../../../css-settings/_variables';
+
+.container{
+  margin-top: 9rem;
+}
+
 todos {
   todo-list {
     display: block;
     margin-bottom: 15px;
+    position: relative;
+  }
+
+  .hw-todos__title{
+    font-size: $big-font-2;
+    font-weight: 700;
+  }
+
+  .hw-todos__add{
+    position: fixed;
+    top: 6rem;
+    z-index: 17;
+    background-color: $color-secondary-dark; 
+    color: white;
+    transform: translateX(-50%);
+
+    &:hover{
+      transform: translateX(-50%);
+      background-color: $color-tertiary-dark;
+    }
   }
 }

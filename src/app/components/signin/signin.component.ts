@@ -25,7 +25,6 @@ class SignInController {
     submit(name: string, password: string): void {
         this.userService.signin(name, password);
 
-        console.log(this.userService.getUserInfo());
         this.$location.url('/app/todo');
     }
 }

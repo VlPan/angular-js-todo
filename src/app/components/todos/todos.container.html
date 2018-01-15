@@ -1,0 +1,37 @@
+<hw-header></hw-header>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-12">
+        <div class="u-center-text">
+            <button type="button"
+              class="hw-todos__add
+              hw-btn
+              hw-btn--transitioned
+              hw-btn--orange
+              hw-btn--medium-padding
+              hw-btn--border-radius
+              hw-btn--medium-font"
+              ng-click="$ctrl.toggleAddTodoForm()"
+            >Add todo
+          </button>
+        </div>
+        <add-todo 
+          ng-class="{'hw-add-todo--open': $ctrl.layoutService.isAddTodoFormOpen}"
+          fetch-data="$ctrl.fetchData()"
+          class="hw-add-todo">
+          </add-todo>
+
+       
+        <todo-list 
+        todos="$ctrl.todos"
+        resolved-todos="$ctrl.resolvedTodos"
+        unresolved-todos="$ctrl.unresolvedTodos"
+        todo-removed="$ctrl.remove($event.id)"
+        todo-resolved="$ctrl.resolve($event.id)"
+        >
+        </todo-list>
+        
+      </div>
+  </div>
+</div>

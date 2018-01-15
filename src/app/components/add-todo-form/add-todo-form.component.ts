@@ -1,7 +1,15 @@
+import { LayoutService } from './../../services/layout.service';
+import './add-todo-form.component.scss';
 class AddTodoFormController {
   name: string;
   body: string;
   todoAdded: ($event: { $event: { todo: { name: string, body: string }}}) => void;
+
+  constructor(
+    private layoutService: LayoutService,
+  ) {
+    'ngInject';
+  }
 
   submit() {
     const name = this.name;
@@ -13,6 +21,7 @@ class AddTodoFormController {
     });
     this.name = '';
     this.body = '';
+    this.layoutService.closeAddTodoForm();
   }
 }
 
