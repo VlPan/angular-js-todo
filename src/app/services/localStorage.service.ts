@@ -18,4 +18,9 @@ export class LocalStorageService{
     remove(name: string): void {
         localStorage.removeItem(name);
     }
+
+    has(name: string): boolean {
+        return !!this.get(name);
+    }
 }
+

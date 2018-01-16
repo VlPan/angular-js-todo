@@ -1,12 +1,14 @@
+import { FinalUser } from './../models/FinalUser';
 import { LocalStorageService } from './LocalStorage.service';
+import {IHaveTodos} from '../models/Interfaces/todoInterface';
 import { User } from '../models/User';
-import {Todo} from '../models/Todo';
+import { Todo } from '../models/Todo';
 
 export class UserService {
     static selector = 'userService';
     private user: User;
-    private userWithTodo: {name: string, password: string, todos: Todo[]};
-    
+    private finalUser: FinalUser;
+
     constructor (
         private $q: angular.IQService,
         private localStorage: LocalStorageService,
@@ -15,44 +17,62 @@ export class UserService {
     }
 
     signin (name: string, password: string): void {
-        let users = this.localStorage.get('users');
-        if(!users){
+        let users: FinalUser[];
+        if(this.localStorage.has('users')){
+            users = this.localStorage.get('users');
+        }else{
             this.localStorage.set('users', []); // if no users create one
             users = [];
         }
+        
 
-        this.userWithTodo = users.find((user: User)=>{
-            return user.name === name && user.password === password; // if there is user in users fetch him
-        });
+        this.finalUser = this.findUserByProps(users, {name,password});
 
-
-        if(!this.userWithTodo){
+        if(!this.finalUser){
             this.user = new User(name, password);
-            this.userWithTodo = this.addTodoListToUser(this.user, []);
-            users = users.concat(this.userWithTodo);
+            this.finalUser = this.extendUser(this.user, []);
+            users = users.concat(this.finalUser);
             this.localStorage.set('users', users);
         }
         
     }
 
     signout () {
-        this.userWithTodo = null;
+        this.finalUser = null;
     }
 
     getUserWithTodoName(){
-        return this.userWithTodo.name;
+        return this.finalUser.name;
     }
 
-    getUserWithTodo():{ name: string; password: string; todos: Todo[] }{
-            return this.userWithTodo;
+    getUserWithTodo():FinalUser{
+            return this.finalUser;
     }
-
 
     isAuthorized(){
-        return !!this.userWithTodo;
+        return !!this.finalUser;
     }
     
-    private addTodoListToUser(user: User, todos:Todo[]) : {name: string, password: string, todos: Todo[]}{
-        return {name: user.name, password: user.password, todos: todos};
+    private extendUser(user: User, todos:Todo[]) : FinalUser{
+        return new FinalUser(user.name, user.password, todos);
+    }
+
+    // private generateObjectWithTodos(obj: any, todos:Todo[]) : any{
+    //     return {...obj, todos};
+    // }
+
+
+    private findUserByProps(users: any, props: {[key: string]:any} ): FinalUser{
+        let numberOfTrueProps = 0;
+        return users.filter((user: any)=>{
+            for (let prop in props){
+                if(user[prop] === props[prop]){
+                    numberOfTrueProps++;
+                }
+                if(numberOfTrueProps === Object.keys(props).length) {
+                    return true;
+                }
+            }
+        }).shift(); // return arr[0]
     }
 }

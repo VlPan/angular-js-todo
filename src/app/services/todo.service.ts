@@ -1,13 +1,13 @@
+import { FinalUser } from './../models/FinalUser';
 import { LocalStorageService } from './LocalStorage.service';
 import { Todo } from '../models/Todo';
 import { UserService } from './users.service';
-import { User } from '../models/User';
 
 export class TodoService{
     static selector = 'todoService';
-    userWithTodo: {name: string, password: string, todos: Todo[]};
+    finalUser: FinalUser;
     todos: Todo[];
-    users: User[];
+    users: FinalUser[];
 
     constructor(
         private $q: angular.IQService,
@@ -19,7 +19,7 @@ export class TodoService{
 
     getAll(){
       if(this.userService.isAuthorized){
-        this.userWithTodo = this.userService.getUserWithTodo();
+        this.finalUser = this.userService.getUserWithTodo();
         this.users = this.localStorage.get('users');
         this.todos = this.userService.getUserWithTodo().todos || [];
         return this.$q.resolve(this.todos);
@@ -43,9 +43,9 @@ export class TodoService{
             resolved: false,
           };
         this.todos.push(todoToAdd);
-        this.userWithTodo.todos = this.todos;
+        this.finalUser.todos = this.todos;
         this.users = this.users.map((user) => { 
-          return user.name === this.userWithTodo.name ? this.userWithTodo : user; 
+          return user.name === this.finalUser.name ? this.finalUser : user;
         });      
 
         this.localStorage.set('users', this.users);
@@ -54,10 +54,10 @@ export class TodoService{
       remove(id: number) {
         
         this.todos = this.todos.filter(todo => todo.id !== id);
-        this.userWithTodo.todos = this.todos;
+        this.finalUser.todos = this.todos;
       
         this.users = this.users.map((user) => { 
-          return user.name === this.userWithTodo.name ? this.userWithTodo : user; 
+          return user.name === this.finalUser.name ? this.finalUser : user;
         });
         this.localStorage.set('users', this.users);
 
@@ -65,14 +65,14 @@ export class TodoService{
 
       resolveTodo(id:number){
         
-          let todoToResolve = this.userWithTodo.todos.find(todo => todo.id === id);
+          let todoToResolve = this.finalUser.todos.find(todo => todo.id === id);
           todoToResolve.resolved = true;
-          this.userWithTodo.todos = this.userWithTodo.todos.map((todo) => { 
+          this.finalUser.todos = this.finalUser.todos.map((todo) => {
               return todo.id === id ? todoToResolve : todo; 
             });
 
             this.users = this.users.map((user) => { 
-              return user.name === this.userWithTodo.name ? this.userWithTodo : user; 
+              return user.name === this.finalUser.name ? this.finalUser : user;
             });
 
             this.localStorage.set('users', this.users);
