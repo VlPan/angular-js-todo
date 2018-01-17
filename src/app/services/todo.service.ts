@@ -3,6 +3,7 @@ import { LocalStorageService } from './LocalStorage.service';
 import { Todo } from '../models/Todo';
 import { UserService } from './users.service';
 import { Category } from '../models/Category';
+import { CategoriesService } from './categories.sevice';
 
 export class TodoService{
     static selector = 'todoService';
@@ -14,6 +15,7 @@ export class TodoService{
         private $q: angular.IQService,
         private localStorage: LocalStorageService,
         private userService: UserService,
+        private categoriesService: CategoriesService
         ) {
       'ngInject';
     }
@@ -36,15 +38,20 @@ export class TodoService{
           .reduce((a, b) => Math.max(a, b), 1);
         }
     
-          let todoToAdd: Todo = {
+          let todoToAdd: any = {
             id: highestId + 1,
             name: todo.name,
             body: todo.body,
             creationDate: Date.now(),
             resolved: false,
-            categories: todo.categories,
+            categories: todo.categories.map((category)=> this.categoriesService.bindIconToCategory(category)),
             urgent: todo.urgent
           };
+
+          
+          // let extendedTodos: any[];
+          // extendedTodos = Object.assign({}, this.todos);
+
         this.todos.push(todoToAdd);
         this.finalUser.todos = this.todos;
         this.users = this.users.map((user) => { 

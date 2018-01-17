@@ -13,54 +13,59 @@
     <div ng-click="$ctrl.addCategory($event)">
 
 
-      <label for="work-category">Work
+      <label for="work-category" class="hw-add-todo-form__container">Work
         <input 
            type="checkbox"
            name="work"
            value="Work"
            id="work-category"
            >
+        <span class="hw-add-todo-form__checkmark"></span>
       </label>
 
 
-      <label for="home-category">Home
+      <label for="home-category" class="hw-add-todo-form__container">Home
         <input type="checkbox" 
                name="home" 
                value="Home" 
                id="home-category"
                >
+      <span class="hw-add-todo-form__checkmark"></span>
       </label>
 
 
-      <label for="health-category">Health
+      <label for="health-category" class="hw-add-todo-form__container">Health
         <input type="checkbox"
                name="health" 
                value="Health" 
                id="health-category"
         > 
+      <span class="hw-add-todo-form__checkmark"></span>
       </label>
 
     
-      <label for="self-developing-category">self Developing
+      <label for="self-developing-category" class="hw-add-todo-form__container">self Developing
         <input 
               type="checkbox" 
               name="selfDeveloping" 
               value="Self-developing" 
               id="self-developing-category"
         >
+      <span class="hw-add-todo-form__checkmark"></span>
       </label>
     </div>
   </div>
 
 
   <div class="form-group">
-    <label for="urgent"> Urgent!
+    <label for="urgent" class="hw-add-todo-form__container"> Urgent!
         <input 
             type="checkbox"
             name="urgent"
             id="urgent" 
             ng-model="$ctrl.urgent"
             >
+    <span class="hw-add-todo-form__checkmark"></span>
     </label>
   </div>
 

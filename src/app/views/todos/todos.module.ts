@@ -29,6 +29,7 @@ import { LayoutService } from './../../services/layout.service';
  */
 import { routing } from './todos.routes';
 import { LocalStorageService } from '../../services/LocalStorage.service';
+import { CategoriesService } from '../../services/categories.sevice';
 
 
 
@@ -46,12 +47,15 @@ export const moduleName =
   .component(TodosContainer.selector, TodosContainer)
   .component(AddTodoContainer.selector, AddTodoContainer)
 
+  
+
 
   .service(ContactsService.selector, ContactsService)
   .service(UserService.selector, UserService)
   .service(LocalStorageService.selector, LocalStorageService)
   .service(TodoService.selector, TodoService)
   .service(LayoutService.selector, LayoutService)
+  .service(CategoriesService.selector, CategoriesService)
 
  
   .config(routing)

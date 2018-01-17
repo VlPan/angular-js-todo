@@ -5,9 +5,20 @@
       ng-repeat="todo in $ctrl.unresolvedTodos track by todo.id"
       ng-class="{'todo-list--move-in-top': $ctrl.layoutService.todoIsDeleting}">
       <div class="todo-list__flex-row">
-            <div class="todo-list__name">
+            <div class="todo-list__name" ng-class="{'todo-list__name--hot': todo.urgent}">
                   {{todo.name}}
             </div>
+            <div class="todo-list__category-container">
+                  <div ng-repeat="category in todo.categories track by $index" >
+                        <div class="todo-list__category-box todo-list__category-box--{{category.modificator}}">
+                              <i class="fa fa-{{category.icon}}" aria-hidden="true"></i>
+                              <h1 class="todo-list__category-name">{{category.name}}</h1>
+                        </div>
+                  </div>
+            </div>
+            
+
+
 
             <div class="todo-list__right">
                   <div class="todo-list__date">
@@ -47,6 +58,15 @@
       <div class="todo-list__flex-row">
             <div class="todo-list__name">
                   {{todo.name}}
+            </div>
+
+            <div class="todo-list__category-container">
+                  <div ng-repeat="category in todo.categories track by $index" >
+                        <div class="todo-list__category-box todo-list__category-box--{{category.modificator}}">
+                              <i class="fa fa-{{category.icon}}" aria-hidden="true"></i>
+                              <h1 class="todo-list__category-name">{{category.name}}</h1>
+                        </div>
+                  </div>
             </div>
 
             <div class="todo-list__right">
