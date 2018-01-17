@@ -22,7 +22,7 @@ class TodoListController {
 
   $onInit() {
     if(this.userService.isAuthorized()){
-      this.username = this.userService.getUserWithTodo().name;
+      this.username = this.userService.getUserName();
     }
 
   }
@@ -37,7 +37,6 @@ class TodoListController {
 
 
   resolve(todo: Todo) {
-    console.log('Resolved!!');
     this.todoResolved({
       $event: {
           id: todo.id

@@ -4,14 +4,13 @@ import './hw-header.component.scss';
 
 class HeaderController {
   userName: string;
-  private isAddTodoFormOpen: boolean = false;
+  // private isAddTodoFormOpen: boolean = false;
   constructor(
       private userService: UserService,
       private $state: angular.ui.IStateService,
-    
   ) {
       'ngInject';
-      this.userName = this.userService.getUserWithTodoName();
+      this.userName = this.userService.getUserName();
       console.log(this.userName);
     }
 

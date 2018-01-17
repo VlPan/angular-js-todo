@@ -1,6 +1,15 @@
 
 <h1>Add Todo</h1>
-<add-todo-form todo-added="$ctrl.add($event.todo)"></add-todo-form>
-<a class="btn btn-default btn-block" ng-click="$ctrl.layoutService.closeAddTodoForm()">close</a>
+
+<i class="hw-add-todo__close-icon
+fa fa-times"
+    aria-hidden="true" 
+    ng-click="$ctrl.layoutService.closeAddTodoForm()">
+</i>
+
+<add-todo-form
+ todo-added="$ctrl.add($event.todo)"
+ ></add-todo-form>
+
 
       

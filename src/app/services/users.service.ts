@@ -7,6 +7,7 @@ import { Todo } from '../models/Todo';
 export class UserService {
     static selector = 'userService';
     private user: User;
+    private users: FinalUser[];
     private finalUser: FinalUser;
 
     constructor (
@@ -17,36 +18,36 @@ export class UserService {
     }
 
     signin (name: string, password: string): void {
-        let users: FinalUser[];
+        
         if(this.localStorage.has('users')){
-            users = this.localStorage.get('users');
+            this.users = this.localStorage.get('users');
         }else{
             this.localStorage.set('users', []); // if no users create one
-            users = [];
+            this.users = [];
         }
         
 
-        this.finalUser = this.findUserByProps(users, {name,password});
+        this.finalUser = this.findUserByProps(this.users, {name, password});
 
         if(!this.finalUser){
             this.user = new User(name, password);
             this.finalUser = this.extendUser(this.user, []);
-            users = users.concat(this.finalUser);
-            this.localStorage.set('users', users);
+            this.users = this.users.concat(this.finalUser);
+            this.localStorage.set('users', this.users);
         }
         
     }
 
-    signout () {
+    signout() {
         this.finalUser = null;
     }
 
-    getUserWithTodoName(){
+    getUserName(){
         return this.finalUser.name;
     }
 
-    getUserWithTodo():FinalUser{
-            return this.finalUser;
+    getUser(): FinalUser{
+        return this.finalUser;
     }
 
     isAuthorized(){
@@ -62,7 +63,7 @@ export class UserService {
     // }
 
 
-    private findUserByProps(users: any, props: {[key: string]:any} ): FinalUser{
+    private findUserByProps(users: any, props: {[key: string]:any} ): FinalUser {
         let numberOfTrueProps = 0;
         return users.filter((user: any)=>{
             for (let prop in props){

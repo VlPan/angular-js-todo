@@ -2,6 +2,7 @@ import * as angular from 'angular';
 import { TodoService } from '../../services/todo.service';
 import './add-todo.container.scss';
 import {LayoutService} from './../../services/layout.service';
+import { Category } from '../../models/Category';
 
 
 class AddTodoController {
@@ -15,7 +16,7 @@ class AddTodoController {
     'ngInject';
   }
 
-  add(todo: { name: string, body: string })  {
+  add(todo: { name: string, body: string, categories: string[], urgent: boolean })  {
     this.todoService.add(todo);
     this.fetchData();
   }

@@ -2,6 +2,7 @@ import { FinalUser } from './../models/FinalUser';
 import { LocalStorageService } from './LocalStorage.service';
 import { Todo } from '../models/Todo';
 import { UserService } from './users.service';
+import { Category } from '../models/Category';
 
 export class TodoService{
     static selector = 'todoService';
@@ -19,14 +20,14 @@ export class TodoService{
 
     getAll(){
       if(this.userService.isAuthorized){
-        this.finalUser = this.userService.getUserWithTodo();
+        this.finalUser = this.userService.getUser();
         this.users = this.localStorage.get('users');
-        this.todos = this.userService.getUserWithTodo().todos || [];
+        this.todos = this.userService.getUser().todos || [];
         return this.$q.resolve(this.todos);
       }
     }
 
-    add(todo: { name: string, body: string }) {
+    add(todo: { name: string, body: string, urgent: boolean, categories: string[] }) {
         
         let highestId = 0;
         if(this.todos && this.todos.length !== 0){
@@ -35,12 +36,14 @@ export class TodoService{
           .reduce((a, b) => Math.max(a, b), 1);
         }
     
-          let todoToAdd = {
+          let todoToAdd: Todo = {
             id: highestId + 1,
             name: todo.name,
             body: todo.body,
             creationDate: Date.now(),
             resolved: false,
+            categories: todo.categories,
+            urgent: todo.urgent
           };
         this.todos.push(todoToAdd);
         this.finalUser.todos = this.todos;
