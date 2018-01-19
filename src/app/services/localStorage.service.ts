@@ -35,7 +35,7 @@ export class LocalStorageService{
                     users = [];
                 }
                 resolve(users);
-            }, Math.random() * (3000 - 150) + 150);
+            }, Math.random() * (1000 - 150) + 150);
         });
     }
 
@@ -45,11 +45,12 @@ export class LocalStorageService{
             setTimeout(() => {
                 todos = this.get('users')
                             .find((userInLs:FinalUser) => {
+                                console.log(userInLs);
                                 return userInLs.name === user.name && userInLs.password === user.password;
                             })
                             .todos;
                 resolve(todos);
-            }, Math.random() * (3000 - 150) + 150);
+            }, Math.random() * (5000 - 2500) + 2500);
         });
     }
 }

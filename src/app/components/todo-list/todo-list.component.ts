@@ -14,15 +14,22 @@ class TodoListController {
   todoResolved: ($event: { $event: { id: number }}) => void;
   constructor(
     private userService: UserService,
-    private layoutService: LayoutService
+    private layoutService: LayoutService,
+    private $scope: any
 ) {
     'ngInject';
+    console.log(this.resolvedTodos);
+    console.log(this.unresolvedTodos);
   }
 
 
   $onInit() {
     if(this.userService.isAuthorized()){
       this.username = this.userService.getUserName();
+      this.$scope.resolvedTodos = this.resolvedTodos;
+      this.$scope.unresolvedTodos = this.unresolvedTodos;
+      console.log(this.$scope.resolvedTodos);
+      console.log(this.$scope.unresolvedTodos);
     }
 
   }

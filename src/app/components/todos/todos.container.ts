@@ -25,8 +25,6 @@ class TodosController {
       private $scope: any
   ) {
       'ngInject';
-      $scope.userLoaded = this.userLoaded;
-      $scope.todosLoaded = this.todosLoaded;
     }
 
   $onInit() {
@@ -34,8 +32,9 @@ class TodosController {
       alert('You should authorize first!');
       this.$location.url('/app/signin');
     }
-
+    console.log(this.$scope);
     this.fetchData();
+    console.log(this.$scope);
   }
 
   remove(id: number) {
@@ -54,11 +53,11 @@ class TodosController {
 
 
   fetchData() {
-    this.todoService.getAll()
-    .then(todos => {
+    this.todoService.getAll().then((todos: Todo[]) => {
     this.todos = todos;
-    this.resolvedTodos = this.getResolvedTodos(todos);
-    this.unresolvedTodos = this.getUnresolvedTodos(todos);
+    this.$scope.resolvedTodos = this.getResolvedTodos(this.todos);
+    this.$scope.unresolvedTodos = this.getUnresolvedTodos(this.todos);
+    this.$scope.$apply();
   });
   }
 

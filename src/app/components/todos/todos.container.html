@@ -26,14 +26,15 @@
        
         <todo-list 
           todos="$ctrl.todos"
-          resolved-todos="$ctrl.resolvedTodos"
-          unresolved-todos="$ctrl.unresolvedTodos"
+          resolved-todos="$ctrl.$scope.resolvedTodos"
+          unresolved-todos="$ctrl.$scope.unresolvedTodos"
           todo-removed="$ctrl.remove($event.id)"
           todo-resolved="$ctrl.resolve($event.id)"
         >
         </todo-list>
-        
- 
+
+
+      
 </div>
 </div>
 

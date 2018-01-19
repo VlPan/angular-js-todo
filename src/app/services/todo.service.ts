@@ -20,13 +20,21 @@ export class TodoService{
       'ngInject';
     }
 
-    getAll(){
-      if(this.userService.isAuthorized){
-        this.finalUser = this.userService.getUser();
-        this.users = this.localStorage.get('users');
-        this.todos = this.userService.getUser().todos || [];
-        return this.$q.resolve(this.todos);
-      }
+    getAll(): any{
+        return new Promise((resolve, reject) => {
+          this.finalUser = this.userService.getUser();
+          this.users = this.localStorage.get('users');
+
+
+          this.localStorage.getTodosByUser(this.finalUser).then((todos: Todo[])=>{
+            
+          this.todos = todos;
+          return resolve(this.todos);
+          });
+          // return this.$q.resolve(this.todos);
+        }); 
+      //   if(this.userService.isAuthorized){
+      // }
     }
 
     add(todo: { name: string, body: string, urgent: boolean, categories: string[] }) {
