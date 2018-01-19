@@ -7,10 +7,13 @@ import { UserService } from '../../services/users.service';
 import { ContactsService } from '../../services/contacts.service';
 
 class SignInController {
+    infoFetching: boolean = false;
     constructor(
         private $location: ng.ILocationService, 
+        private $state: angular.ui.IStateService,
         private userService: UserService,
-        private contactsService: ContactsService
+        private contactsService: ContactsService,
+        private $scope: any
     ) {
         'ngInject';
       }
@@ -18,14 +21,17 @@ class SignInController {
       $onInit(){
           if(this.userService.isAuthorized()){
             alert('You are already authorized. Redirect to your todos!');
-            this.$location.url('/app/todo');
+            this.$state.go('signin');
           }
       }
     
     submit(name: string, password: string): void {
-        this.userService.signin(name, password);
-
-        this.$location.url('/app/todo');
+        this.$scope.infoFetching = true;
+        this.userService.signin(name, password).then((infoFetched)=> {
+            console.log('infoFetched  ' + infoFetched);
+            this.$scope.infoFetching = false;
+            this.$state.go('todos');
+        });
     }
 }
 

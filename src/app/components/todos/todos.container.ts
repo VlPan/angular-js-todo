@@ -6,28 +6,35 @@ import './todos.container.scss';
 import { UserService } from '../../services/users.service';
 import { LayoutService } from './../../services/layout.service';
 import { Todo } from '../../models/Todo';
+import { LocalStorageService } from '../../services/localStorage.service';
 
 
 class TodosController {
   todos: Todo[];
   resolvedTodos: Todo[];
   unresolvedTodos: Todo[];
+  userLoaded: boolean = false;
+  todosLoaded: boolean = false;
   constructor(
      
       private todoService: TodoService,
       private userService: UserService,
       private layoutService: LayoutService,
+      private localStorage: LocalStorageService,
       private $location: ng.ILocationService, 
+      private $scope: any
   ) {
       'ngInject';
+      $scope.userLoaded = this.userLoaded;
+      $scope.todosLoaded = this.todosLoaded;
     }
 
   $onInit() {
     if(!this.userService.isAuthorized()){
       alert('You should authorize first!');
       this.$location.url('/app/signin');
-      return;
     }
+
     this.fetchData();
   }
 
@@ -52,7 +59,7 @@ class TodosController {
     this.todos = todos;
     this.resolvedTodos = this.getResolvedTodos(todos);
     this.unresolvedTodos = this.getUnresolvedTodos(todos);
-    });
+  });
   }
 
     private getResolvedTodos(todos: Todo[]){

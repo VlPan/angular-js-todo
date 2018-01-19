@@ -52,6 +52,7 @@ export class TodoService{
           // let extendedTodos: any[];
           // extendedTodos = Object.assign({}, this.todos);
 
+        console.log(this.todos);
         this.todos.push(todoToAdd);
         this.finalUser.todos = this.todos;
         this.users = this.users.map((user) => { 

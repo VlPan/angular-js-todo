@@ -7,7 +7,7 @@ import { Todo } from '../models/Todo';
 export class UserService {
     static selector = 'userService';
     private user: User;
-    private users: FinalUser[];
+    private users: any;
     private finalUser: FinalUser;
 
     constructor (
@@ -17,25 +17,31 @@ export class UserService {
         'ngInject';
     }
 
-    signin (name: string, password: string): void {
+    signin (name: string, password: string) {
         
-        if(this.localStorage.has('users')){
-            this.users = this.localStorage.get('users');
-        }else{
-            this.localStorage.set('users', []); // if no users create one
-            this.users = [];
-        }
-        
+        return new Promise((resolve, reject) => {
+            let infoFetched: boolean = false;
+            this.localStorage.getUsers().then((result) => {
+                this.users = result;
+                this.finalUser = this.findUserByProps(this.users, {name, password});
+    
+                if(!this.finalUser){
+                    this.user = new User(name, password);
+                    this.finalUser = this.extendUser(this.user, []);
+                    this.users = this.users.concat(this.finalUser);
+                    this.localStorage.set('users', this.users);
+                }
+                infoFetched = true;
+                resolve(infoFetched);
+            });
 
-        this.finalUser = this.findUserByProps(this.users, {name, password});
-
-        if(!this.finalUser){
-            this.user = new User(name, password);
-            this.finalUser = this.extendUser(this.user, []);
-            this.users = this.users.concat(this.finalUser);
-            this.localStorage.set('users', this.users);
-        }
-        
+            // if(this.localStorage.has('users')){
+            //     this.users = this.localStorage.get('users');
+            // }else{
+            //     this.localStorage.set('users', []); // if no users create one
+            //     this.users = [];
+            // }
+        });
     }
 
     signout() {
