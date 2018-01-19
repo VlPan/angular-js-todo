@@ -10,8 +10,6 @@ class AddTodoController {
   fetchData: () => void;
   constructor(
       private todoService: TodoService,
-      private layoutService: LayoutService
-
   ) {
     'ngInject';
   }

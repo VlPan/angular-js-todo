@@ -17,12 +17,14 @@ export class LayoutService{
         return this.isAddTodoFormOpen = false;
     }
 
-    deleteTodo(callback: any, arg: any): void{
+    deleteTodo(){
         this.todoIsDeleting = true;
-        setTimeout(()=>{
-            callback(arg);
-            this.todoIsDeleting = false;
-        }, 400);
-       
+        return new Promise((resolve, reject)=>{
+            setTimeout(()=>{
+                this.todoIsDeleting = false;
+                console.log(this.todoIsDeleting);
+                resolve();
+            }, 400);
+        });
     }
 }

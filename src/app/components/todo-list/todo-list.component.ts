@@ -18,28 +18,25 @@ class TodoListController {
     private $scope: any
 ) {
     'ngInject';
-    console.log(this.resolvedTodos);
-    console.log(this.unresolvedTodos);
   }
 
 
   $onInit() {
     if(this.userService.isAuthorized()){
       this.username = this.userService.getUserName();
-      this.$scope.resolvedTodos = this.resolvedTodos;
-      this.$scope.unresolvedTodos = this.unresolvedTodos;
-      console.log(this.$scope.resolvedTodos);
-      console.log(this.$scope.unresolvedTodos);
     }
 
   }
 
   remove(todo: Todo) {
-    this.layoutService.deleteTodo(this.todoRemoved, {
-      $event: {
-          id: todo.id
-      }
-    });
+      this.layoutService.deleteTodo().then(()=>{
+          this.todoRemoved({
+              $event: {
+                        id: todo.id
+                     }
+          });
+          this.$scope.$applyAsync();
+      });
   }
 
 

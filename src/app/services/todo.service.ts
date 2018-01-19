@@ -24,17 +24,15 @@ export class TodoService{
         return new Promise((resolve, reject) => {
           this.finalUser = this.userService.getUser();
           this.users = this.localStorage.get('users');
-
-
           this.localStorage.getTodosByUser(this.finalUser).then((todos: Todo[])=>{
-            
           this.todos = todos;
           return resolve(this.todos);
           });
-          // return this.$q.resolve(this.todos);
-        }); 
-      //   if(this.userService.isAuthorized){
-      // }
+        });
+    }
+
+    getTodos(): Todo[]{
+        return this.todos;
     }
 
     add(todo: { name: string, body: string, urgent: boolean, categories: string[] }) {
@@ -56,9 +54,6 @@ export class TodoService{
             urgent: todo.urgent
           };
 
-          
-          // let extendedTodos: any[];
-          // extendedTodos = Object.assign({}, this.todos);
 
         console.log(this.todos);
         this.todos.push(todoToAdd);
@@ -74,7 +69,7 @@ export class TodoService{
         
         this.todos = this.todos.filter(todo => todo.id !== id);
         this.finalUser.todos = this.todos;
-      
+        console.log(this.todos);
         this.users = this.users.map((user) => { 
           return user.name === this.finalUser.name ? this.finalUser : user;
         });
@@ -89,6 +84,8 @@ export class TodoService{
           this.finalUser.todos = this.finalUser.todos.map((todo) => {
               return todo.id === id ? todoToResolve : todo; 
             });
+
+          this.todos = this.finalUser.todos;
 
             this.users = this.users.map((user) => { 
               return user.name === this.finalUser.name ? this.finalUser : user;

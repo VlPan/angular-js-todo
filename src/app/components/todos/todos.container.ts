@@ -32,9 +32,7 @@ class TodosController {
       alert('You should authorize first!');
       this.$location.url('/app/signin');
     }
-    console.log(this.$scope);
     this.fetchData();
-    console.log(this.$scope);
   }
 
   remove(id: number) {
@@ -53,12 +51,19 @@ class TodosController {
 
 
   fetchData() {
-    this.todoService.getAll().then((todos: Todo[]) => {
-    this.todos = todos;
-    this.$scope.resolvedTodos = this.getResolvedTodos(this.todos);
-    this.$scope.unresolvedTodos = this.getUnresolvedTodos(this.todos);
-    this.$scope.$apply();
-  });
+      if (!this.todoService.getTodos()) {
+          this.todoService.getAll().then((todos: Todo[]) => {
+              this.todos = todos;
+              this.$scope.resolvedTodos = this.getResolvedTodos(this.todos);
+              this.$scope.unresolvedTodos = this.getUnresolvedTodos(this.todos);
+              this.$scope.$apply();
+          });
+      } else {
+          this.todos = this.todoService.getTodos();
+          this.$scope.resolvedTodos = this.getResolvedTodos(this.todos);
+          this.$scope.unresolvedTodos = this.getUnresolvedTodos(this.todos);
+      }
+
   }
 
     private getResolvedTodos(todos: Todo[]){

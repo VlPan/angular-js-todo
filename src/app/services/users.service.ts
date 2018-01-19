@@ -64,11 +64,6 @@ export class UserService {
         return new FinalUser(user.name, user.password, todos);
     }
 
-    // private generateObjectWithTodos(obj: any, todos:Todo[]) : any{
-    //     return {...obj, todos};
-    // }
-
-
     private findUserByProps(users: any, props: {[key: string]:any} ): FinalUser {
         let numberOfTrueProps = 0;
         return users.filter((user: any)=>{

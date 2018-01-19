@@ -1,18 +1,14 @@
 import './signin.component.scss';
 import './btn.component.scss';
 
-import { User } from '../../models/User';
-
 import { UserService } from '../../services/users.service';
-import { ContactsService } from '../../services/contacts.service';
+
 
 class SignInController {
     infoFetching: boolean = false;
     constructor(
-        private $location: ng.ILocationService, 
         private $state: angular.ui.IStateService,
         private userService: UserService,
-        private contactsService: ContactsService,
         private $scope: any
     ) {
         'ngInject';
@@ -21,7 +17,7 @@ class SignInController {
       $onInit(){
           if(this.userService.isAuthorized()){
             alert('You are already authorized. Redirect to your todos!');
-            this.$state.go('signin');
+            this.$state.go('todos');
           }
       }
     

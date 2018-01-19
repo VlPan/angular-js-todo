@@ -50,7 +50,7 @@ export class LocalStorageService{
                             })
                             .todos;
                 resolve(todos);
-            }, Math.random() * (5000 - 2500) + 2500);
+            }, Math.random() * (1500 - 700) + 700);
         });
     }
 }
