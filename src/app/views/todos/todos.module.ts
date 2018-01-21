@@ -1,3 +1,4 @@
+import { MappingService } from './../../services/mapping.service';
 
 
 // temporary, until https://github.com/Microsoft/TypeScript/issues/10178 is implemented
@@ -29,7 +30,7 @@ import { LayoutService } from './../../services/layout.service';
  */
 import { routing } from './todos.routes';
 import { LocalStorageService } from '../../services/LocalStorage.service';
-import { CategoriesService } from '../../services/categories.sevice';
+import { CategoriesService } from '../../services/categories.service';
 
 
 
@@ -56,6 +57,7 @@ export const moduleName =
   .service(TodoService.selector, TodoService)
   .service(LayoutService.selector, LayoutService)
   .service(CategoriesService.selector, CategoriesService)
+  .service(MappingService.selector, MappingService)
 
  
   .config(routing)

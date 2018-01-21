@@ -17,3 +17,11 @@
   z-index: 40;
   background-color: rgba(black, 0.6); 
 }
+
+.hw__loader-container{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

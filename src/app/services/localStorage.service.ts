@@ -4,7 +4,8 @@ export class LocalStorageService{
     static selector = 'localStorage';
 
     constructor(
-        private $q: angular.IQService
+        private $q: angular.IQService,
+        private $timeout: ng.ITimeoutService
     ) {
       'ngInject';
     }
@@ -26,7 +27,7 @@ export class LocalStorageService{
     }
 
     getUsers(){
-        return new Promise((resolve, reject) => {
+        return this.$q((resolve, reject) => {
             let users: FinalUser[];
             setTimeout(() => {
                 users = this.get('users');
@@ -35,22 +36,46 @@ export class LocalStorageService{
                     users = [];
                 }
                 resolve(users);
-            }, Math.random() * (1000 - 150) + 150);
+            }, Math.random() * (1500 - 150) + 150);
         });
     }
 
     getTodosByUser(user: FinalUser){
-        return new Promise((resolve, reject)=>{
+        return this.$q((resolve, reject)=>{
             let todos: Todo[];
             setTimeout(() => {
-                todos = this.get('users')
-                            .find((userInLs:FinalUser) => {
-                                console.log(userInLs);
-                                return userInLs.name === user.name && userInLs.password === user.password;
-                            })
-                            .todos;
+                todos = this.findUserByProps(this.get('users'), {
+                    name: user.name, password: user.password
+                }).todos;
                 resolve(todos);
             }, Math.random() * (1500 - 700) + 700);
+        });
+    }
+
+    public findUserByProps(users: any, props: {[key: string]:any} ) {
+        let numberOfTrueProps = 0;
+        return users.filter((user: any)=>{
+            for (let prop in props){
+                if(user[prop] === props[prop]){
+                    numberOfTrueProps++;
+                }
+                if(numberOfTrueProps === Object.keys(props).length) {
+                    return true;
+                }
+            }
+        }).shift(); // return arr[0]
+    }
+
+    public generateCategories(categories: string[]){
+            this.set('categories', categories);
+    }   
+
+    public getCategories():any {
+        return this.$q((resolve, reject)=>{
+            let categories: string[] = this.get('categories');
+            setTimeout(() => {
+                resolve(categories);
+                }, Math.random() * (5000 - 700) + 700);
         });
     }
 }

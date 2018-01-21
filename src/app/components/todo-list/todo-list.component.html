@@ -60,7 +60,9 @@
             </div>
 
             <div class="todo-list__category-container">
-                  <div ng-repeat="category in todo.categories track by $index" >
+                  <div 
+                  ng-repeat="category in todo.categories
+                  track by $index" >
                         <div class="todo-list__category-box todo-list__category-box--{{category.modificator}}">
                               <i class="fa fa-{{category.icon}}" aria-hidden="true"></i>
                               <h1 class="todo-list__category-name">{{category.name}}</h1>

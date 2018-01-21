@@ -1,0 +1,31 @@
+@import './../../../css-settings/_variables';
+
+.hw-loader {
+    color: #fff;
+    
+    font-family: Consolas, Menlo, Monaco, monospace;
+    font-weight: bold;
+    font-size: 5rem;
+    
+    opacity: .8;
+  
+    span {
+      display: inline-block;
+      animation: pulse 0.4s alternate infinite ease-in-out;
+  
+      &:nth-child(odd) {
+        animation-delay: 0.4s;
+      }
+    }
+
+    &--blue{
+        color: $color-tertiary-light;
+    }
+  }
+  
+  @keyframes pulse {
+    to {
+      transform: scale(0.8);
+      opacity: 0.5;
+    }
+  }

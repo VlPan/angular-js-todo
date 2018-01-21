@@ -1,9 +1,10 @@
+import { MappingService } from './mapping.service';
 import { FinalUser } from './../models/FinalUser';
 import { LocalStorageService } from './LocalStorage.service';
 import { Todo } from '../models/Todo';
 import { UserService } from './users.service';
 import { Category } from '../models/Category';
-import { CategoriesService } from './categories.sevice';
+import { CategoriesService } from './categories.service';
 
 export class TodoService{
     static selector = 'todoService';
@@ -15,25 +16,31 @@ export class TodoService{
         private $q: angular.IQService,
         private localStorage: LocalStorageService,
         private userService: UserService,
-        private categoriesService: CategoriesService
+        private categoriesService: CategoriesService,
+        private mappingService: MappingService
+      
         ) {
       'ngInject';
     }
 
     getAll(): any{
-        return new Promise((resolve, reject) => {
+        return this.$q((resolve, reject) => {
           this.finalUser = this.userService.getUser();
-          this.users = this.localStorage.get('users');
+          this.users = this.userService.getUsers();
           this.localStorage.getTodosByUser(this.finalUser).then((todos: Todo[])=>{
           this.todos = todos;
+          this.todos = this.todos.map((todo:any) => this.mappingService.mapTodo(todo));
+
           return resolve(this.todos);
           });
         });
     }
 
     getTodos(): Todo[]{
-        return this.todos;
+      return this.todos;
     }
+
+  
 
     add(todo: { name: string, body: string, urgent: boolean, categories: string[] }) {
         
@@ -44,19 +51,20 @@ export class TodoService{
           .reduce((a, b) => Math.max(a, b), 1);
         }
     
+        console.log(todo.categories);
           let todoToAdd: any = {
             id: highestId + 1,
             name: todo.name,
             body: todo.body,
             creationDate: Date.now(),
             resolved: false,
-            categories: todo.categories.map((category)=> this.categoriesService.bindIconToCategory(category)),
+            categories: todo.categories,
             urgent: todo.urgent
           };
 
+       
 
-        console.log(this.todos);
-        this.todos.push(todoToAdd);
+        this.todos = this.todos.concat(todoToAdd);
         this.finalUser.todos = this.todos;
         this.users = this.users.map((user) => { 
           return user.name === this.finalUser.name ? this.finalUser : user;
@@ -74,7 +82,6 @@ export class TodoService{
           return user.name === this.finalUser.name ? this.finalUser : user;
         });
         this.localStorage.set('users', this.users);
-
       }
 
       resolveTodo(id:number){
@@ -90,9 +97,6 @@ export class TodoService{
             this.users = this.users.map((user) => { 
               return user.name === this.finalUser.name ? this.finalUser : user;
             });
-
             this.localStorage.set('users', this.users);
-    
       }
-
     }

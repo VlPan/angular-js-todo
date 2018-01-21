@@ -1,5 +1,6 @@
 import './signin.component.scss';
 import './btn.component.scss';
+import './loader.component.scss';
 
 import { UserService } from '../../services/users.service';
 
@@ -23,8 +24,8 @@ class SignInController {
     
     submit(name: string, password: string): void {
         this.$scope.infoFetching = true;
-        this.userService.signin(name, password).then((infoFetched)=> {
-            console.log('infoFetched  ' + infoFetched);
+
+        this.userService.signin(name, password).then(()=> {
             this.$scope.infoFetching = false;
             this.$state.go('todos');
         });

@@ -2,8 +2,18 @@
 <div class="hw-shadow-container" ng-if="$ctrl.layoutService.isAddTodoFormOpen"></div>
 <hw-header></hw-header>
 
-<div class="container">
-  
+
+<div ng-if="$ctrl.$scope.dataFetching">
+    <div class="hw__loader-container">
+          <div class="hw-loader hw-loader--blue">
+                <span>{</span><span>}</span>
+          </div>
+    </div>
+</div>
+
+
+
+<div class="container" ng-if="!$ctrl.$scope.dataFetching">
         <div class="u-center-text">
             <button type="button"
               class="hw-todos__add
@@ -25,7 +35,6 @@
 
        
         <todo-list 
-          todos="$ctrl.todos"
           resolved-todos="$ctrl.$scope.resolvedTodos"
           unresolved-todos="$ctrl.$scope.unresolvedTodos"
           todo-removed="$ctrl.remove($event.id)"

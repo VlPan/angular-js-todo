@@ -75,8 +75,10 @@
   },
   "dependencies": {
     "@angular/animations": "^5.2.0",
+    "@types/underscore": "^1.8.7",
     "@uirouter/angularjs": "1.0.12",
     "angular": "^1.6.7",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "underscore": "^1.8.3"
   }
 }

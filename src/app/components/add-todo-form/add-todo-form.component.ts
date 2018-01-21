@@ -1,3 +1,5 @@
+import { StyledCategory } from './../../models/StyledCategory';
+import { CategoriesService } from './../../services/categories.service';
 import { LayoutService } from './../../services/layout.service';
 import './add-todo-form.component.scss';
 class AddTodoFormController {
@@ -5,20 +7,39 @@ class AddTodoFormController {
   body: string;
   urgent: boolean;
   categories: string[] = [];
+  styledCategores: StyledCategory[] = [];
   todoAdded: ($event: { $event: { todo: { name: string, body: string, categories: string[], urgent: boolean }}}) => void;
 
   constructor(
     private layoutService: LayoutService,
+    private categoriesService: CategoriesService
   ) {
     'ngInject';
+  }
+
+  $onInit(){
+    if(this.categoriesService.hasStyledCategories){
+      console.log('INITED!');
+      this.styledCategores = this.categoriesService.getStyledCategories();
+      console.log(this.styledCategores);
+    }
+  }
+
+  $onChanges(){
+    if(this.categoriesService.hasStyledCategories){
+      console.log('CAHNGED!');
+      this.styledCategores = this.categoriesService.getStyledCategories();
+      console.log(this.styledCategores);
+    }
+    
   }
 
   submit() {
     const name = this.name;
     const body = this.body;
     const urgent = this.urgent;
-    console.log(urgent);
     const categories = this.categories;
+    console.log(categories);
     this.todoAdded({
       $event: {
         todo: { name, body, categories, urgent}

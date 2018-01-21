@@ -10,6 +10,7 @@ class AddTodoController {
   fetchData: () => void;
   constructor(
       private todoService: TodoService,
+      private layoutService: LayoutService
   ) {
     'ngInject';
   }
@@ -17,6 +18,11 @@ class AddTodoController {
   add(todo: { name: string, body: string, categories: string[], urgent: boolean })  {
     this.todoService.add(todo);
     this.fetchData();
+  }
+
+  closeForm(){
+    this.layoutService.closeAddTodoForm();
+    console.log(this.layoutService.isAddTodoFormOpen);
   }
 }
 
