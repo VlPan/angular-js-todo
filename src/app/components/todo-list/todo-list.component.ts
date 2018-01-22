@@ -18,10 +18,7 @@ class TodoListController {
   constructor(
     private userService: UserService,
     private layoutService: LayoutService,
-    private categoriesService: CategoriesService,
-    private todoService: TodoService,
     private $scope: any,
-    private $rootScope: any
 ) {
     'ngInject';
   }
@@ -31,31 +28,7 @@ class TodoListController {
     if(this.userService.isAuthorized()){
       this.username = this.userService.getUserName();
     }
-    
-
-    // setTimeout(()=>{
-    //   this.todos = this.todoService.getTodos();
-    //   console.log(this.todos);
-    // },3000);
-    
   }
-
-  $onChanges(changesObj:any){
-    console.log(this.unresolvedTodos);
-    console.log(this.resolvedTodos);
-    // let todoToMapNumber = changesObj.todos.currentValue.length-1;
-    // let todoToMap = changesObj.todos.currentValue[todoToMapNumber];
-    // console.log('todoToMap',todoToMap);
-    //   this.todos = this.todos.map((todo:any)=>{
-    //     console.log('todo!!!!', todo);
-    //     todo.categories = todo.categories.map((category:string)=>{
-    //       return this.categoriesService.bindIconToCategory(category);
-    //     });
-    //   });
-    //   console.log('todos binding');
-    //   console.log(this.todos);
-  }
-
 
   remove(todo: Todo) {
       this.layoutService.deleteTodo().then(()=>{

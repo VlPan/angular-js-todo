@@ -14,14 +14,11 @@ class TodosController {
   todos: any;
   resolvedTodos: any;
   unresolvedTodos: any;
-  userLoaded: boolean = false;
-  todosLoaded: boolean = false;
   dataFetching: boolean = false;
   constructor(
       private todoService: TodoService,
       private userService: UserService,
       private layoutService: LayoutService,
-      private localStorage: LocalStorageService,
       private categoriesService: CategoriesService,
       private $location: ng.ILocationService, 
       private $scope: any
@@ -79,27 +76,30 @@ class TodosController {
     }
 
     private getUnresolvedTodos(todos: Todo[]){
+        console.log('АРГУМЕНТ', todos);
         return this.styleCategories(todos.filter(todo => !todo.resolved));
     }
 
     private styleCategories(todos: any){
-      
-
+        console.log('аргумент', todos);
       todos = todos.map((todo: any, styledTodos:any)=>{
+          console.log(todo.categories[0]);
+          console.log(todo.categories[0] instanceof Object);
         if(todo.categories[0]  instanceof Object){
-          console.log('already styled');
+            console.log('already styled');
         }else{
-          console.log('todo', todo);
           styledTodos = _.clone(todo);
-          console.log(styledTodos);
+          styledTodos.categories = _.clone(todo.categories);
+          console.log('категории', styledTodos.categories);
           styledTodos.categories = styledTodos.categories
           .map((category:string) => this.categoriesService.bindIconToCategory(category));
+          console.log(styledTodos);
           return styledTodos;
         }
       });
 
-      console.log('RESULT OF REDUCE', todos);
-      return todos;
+        console.log('RESULT OF REDUCE', todos);
+        return todos;
     }
 
 }

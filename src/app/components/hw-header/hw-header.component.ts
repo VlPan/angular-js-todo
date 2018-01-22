@@ -4,7 +4,6 @@ import './hw-header.component.scss';
 
 class HeaderController {
   userName: string;
-  // private isAddTodoFormOpen: boolean = false;
   constructor(
       private userService: UserService,
       private $state: angular.ui.IStateService,

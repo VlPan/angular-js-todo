@@ -36,7 +36,7 @@ export class LocalStorageService{
                     users = [];
                 }
                 resolve(users);
-            }, Math.random() * (1500 - 150) + 150);
+            }, Math.random() * (2500 - 2500) + 2500);
         });
     }
 
@@ -75,7 +75,7 @@ export class LocalStorageService{
             let categories: string[] = this.get('categories');
             setTimeout(() => {
                 resolve(categories);
-                }, Math.random() * (5000 - 700) + 700);
+                }, Math.random() * (1000 - 700) + 700);
         });
     }
 }

@@ -15,12 +15,12 @@ class SignInController {
         'ngInject';
       }
 
-      $onInit(){
-          if(this.userService.isAuthorized()){
+    $onInit(){
+        if(this.userService.isAuthorized()){
             alert('You are already authorized. Redirect to your todos!');
             this.$state.go('todos');
-          }
-      }
+        }
+    }
     
     submit(name: string, password: string): void {
         this.$scope.infoFetching = true;

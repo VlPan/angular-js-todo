@@ -56,7 +56,7 @@ class AddTodoFormController {
 
     if(categoryName && categoryCheked){
       if(!this.isCategoryInArray(categoryName, this.categories)){
-        this.categories.push($event.target.name);
+        this.categories = this.categories.concat($event.target.name);
         console.log(this.categories);
       }
     }
