@@ -5,12 +5,14 @@ import { Todo } from '../models/Todo';
 import { UserService } from './users.service';
 import { Category } from '../models/Category';
 import { CategoriesService } from './categories.service';
+import * as Rx from 'rxjs/Rx';
 
 export class TodoService{
     static selector = 'todoService';
     finalUser: FinalUser;
     todos: Todo[];
     users: FinalUser[];
+    todos$: any;
 
     constructor(
         private $q: angular.IQService,
@@ -20,7 +22,8 @@ export class TodoService{
         private mappingService: MappingService
       
         ) {
-      'ngInject';
+          this.todos$ = new Rx.BehaviorSubject <Todo[]>([]);
+        // 'ngInject';
     }
 
     getAll(): any{
@@ -28,10 +31,12 @@ export class TodoService{
           this.finalUser = this.userService.getUser();
           this.users = this.userService.getUsers();
           this.localStorage.getTodosByUser(this.finalUser).then((todos: Todo[])=>{
+
           this.todos = todos;
           this.todos = this.todos.map((todo:any) => this.mappingService.mapTodo(todo));
+          this.todos$.next(todos);
 
-          return resolve(this.todos);
+          return resolve();
           });
         });
     }

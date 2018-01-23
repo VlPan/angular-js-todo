@@ -53,7 +53,9 @@ class TodosController {
       if (!this.todoService.getTodos()) {
         this.$scope.dataFetching = true;
           this.todoService.getAll().then((todos: Todo[]) => {
-              this.todos = todos;
+              this.todoService.todos$.subscribe((newTodos:any) => this.todos = newTodos);
+              // this.todos = todos;
+              console.log(this.todos);
               console.log('TODOS from todos service', this.todos);
               this.$scope.resolvedTodos = this.getResolvedTodos(this.todos);
               this.$scope.unresolvedTodos = this.getUnresolvedTodos(this.todos);

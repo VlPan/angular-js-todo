@@ -4,6 +4,12 @@ import './loader.component.scss';
 
 import { UserService } from '../../services/users.service';
 
+// import { Observable } from 'rxjs/Observable';
+// import 'rxjs/add/observable/of';
+// import 'rxjs/add/operator/map';
+import * as Rx from 'rxjs/Rx';
+
+
 
 class SignInController {
     infoFetching: boolean = false;
@@ -16,6 +22,11 @@ class SignInController {
       }
 
     $onInit(){
+
+        let observable = Rx.Observable.of(1,2,3);
+        observable.subscribe({
+            next: (x: any) => console.log(x)
+        });
         if(this.userService.isAuthorized()){
             alert('You are already authorized. Redirect to your todos!');
             this.$state.go('todos');

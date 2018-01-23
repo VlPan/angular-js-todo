@@ -4,11 +4,14 @@ import { FinalUser } from './../models/FinalUser';
 import { LocalStorageService } from './LocalStorage.service';
 import { User } from '../models/User';
 import { Todo } from '../models/Todo';
+import * as Rx from 'rxjs/Rx';
 
 export class UserService {
     static selector = 'userService';
+    users$: any;
     private user: User;
     private users: any;
+
     private finalUser: FinalUser;
 
     constructor (
@@ -17,7 +20,9 @@ export class UserService {
         private categoriesService: CategoriesService,
         private mappingService: MappingService
     ){
-        'ngInject';
+        this.users$ = new Rx.BehaviorSubject <Todo[]>([]);
+        // 'ngInject';
+        
     }
 
     signin (name: string, password: string) {
@@ -28,6 +33,7 @@ export class UserService {
 
             this.localStorage.getUsers().then((result) => {
                 this.users = result;
+                this.users$.next(result);
                 this.users = this.users.map((user:any) => this.mappingService.mapUser(user));
                 console.log(this.users);
                 this.finalUser = this.localStorage.findUserByProps(this.users, {name, password});
