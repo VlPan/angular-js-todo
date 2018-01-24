@@ -1,26 +1,27 @@
 import { StyledCategory } from './../models/StyledCategory';
-import {LocalStorageService} from './localStorage.service';
+import {FakeBackendService} from './fake-backend.service';
 import * as Rx from 'rxjs/Rx';
 
 export class CategoriesService {
     static selector = 'categoriesService';
-    styledCategories$: any = new Rx.BehaviorSubject<StyledCategory[]>([]);
+    styledCategories$: any = new Rx.BehaviorSubject<string[]>([]);
     private styledCategories: StyledCategory[];
+
     
     constructor(
         private $q: angular.IQService,
-        private localStorage: LocalStorageService
+        private fakeBackend: FakeBackendService
     ) {
-        // this.styledCategories$ = ;
       'ngInject';
     }
 
     getCategoriesFromLs(){
+       
+        
+       
         return this.$q((resolve, reject) => {
-            this.localStorage.getCategories().then((categories: string[]) => {
-                
+            this.fakeBackend.getCategories().then((categories: string[]) => {
                     if(categories instanceof Array && categories.length !== 0){
-                        this.setStyledCategory(categories);
                         this.styledCategories$.next(this.setStyledCategory(categories));
                         resolve(categories);
                         

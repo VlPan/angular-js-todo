@@ -1,11 +1,13 @@
 import { MappingService } from './mapping.service';
 import { FinalUser } from './../models/FinalUser';
-import { LocalStorageService } from './LocalStorage.service';
+import { FakeBackendService } from './fake-backend.service';
 import { Todo } from '../models/Todo';
 import { UserService } from './users.service';
 import { Category } from '../models/Category';
 import { CategoriesService } from './categories.service';
+import * as _ from 'underscore';
 import * as Rx from 'rxjs/Rx';
+
 
 export class TodoService{
     static selector = 'todoService';
@@ -16,29 +18,32 @@ export class TodoService{
 
     constructor(
         private $q: angular.IQService,
-        private localStorage: LocalStorageService,
+        private fakeBackend: FakeBackendService,
         private userService: UserService,
         private categoriesService: CategoriesService,
         private mappingService: MappingService
       
         ) {
-          this.todos$ = new Rx.BehaviorSubject <Todo[]>([]);
-        // 'ngInject';
+          
+        'ngInject';
     }
 
     getAll(): any{
-        return this.$q((resolve, reject) => {
-          this.finalUser = this.userService.getUser();
-          this.users = this.userService.getUsers();
-          this.localStorage.getTodosByUser(this.finalUser).then((todos: Todo[])=>{
-
-          this.todos = todos;
-          this.todos = this.todos.map((todo:any) => this.mappingService.mapTodo(todo));
-          this.todos$.next(todos);
-
-          return resolve();
-          });
-        });
+        this.userService.users$
+        .subscribe(
+          (userInfo:any) => {
+            this.finalUser = this.userService.getUser();
+            this.users = this.userService.getUsers();
+            this.todos$ = Rx.Observable.fromPromise(this.fakeBackend.getTodosByUser(this.finalUser));
+            this.todos$
+            .subscribe(
+                 (todos: Todo[]) => {
+                  this.todos = todos;
+                  this.todos = this.todos.map((todo:any) => this.mappingService.mapTodo(todo));
+                }
+            );
+          }
+        );
     }
 
     getTodos(): Todo[]{
@@ -75,7 +80,7 @@ export class TodoService{
           return user.name === this.finalUser.name ? this.finalUser : user;
         });      
 
-        this.localStorage.set('users', this.users);
+        this.fakeBackend.set('users', this.users);
       }
 
       remove(id: number) {
@@ -86,7 +91,7 @@ export class TodoService{
         this.users = this.users.map((user) => { 
           return user.name === this.finalUser.name ? this.finalUser : user;
         });
-        this.localStorage.set('users', this.users);
+        this.fakeBackend.set('users', this.users);
       }
 
       resolveTodo(id:number){
@@ -102,6 +107,38 @@ export class TodoService{
             this.users = this.users.map((user) => { 
               return user.name === this.finalUser.name ? this.finalUser : user;
             });
-            this.localStorage.set('users', this.users);
+            this.fakeBackend.set('users', this.users);
       }
+
+      public getResolvedTodos(todos: Todo[]){
+        return this.styleCategories(todos.filter(todo => todo.resolved));
+          
+      }
+  
+      public getUnresolvedTodos(todos: Todo[]){
+          console.log('АРГУМЕНТ', todos);
+          return this.styleCategories(todos.filter(todo => !todo.resolved));
+      }
+
+      private styleCategories(todos: any){
+        console.log('аргумент', todos);
+      todos = todos.map((todo: any, styledTodos:any)=>{
+          console.log(todo.categories[0]);
+          console.log(todo.categories[0] instanceof Object);
+        if(todo.categories[0]  instanceof Object){
+            console.log('already styled');
+        }else{
+          styledTodos = _.clone(todo);
+          styledTodos.categories = _.clone(todo.categories);
+          console.log('категории', styledTodos.categories);
+          styledTodos.categories = styledTodos.categories
+          .map((category:string) => this.categoriesService.bindIconToCategory(category));
+          console.log(styledTodos);
+          return styledTodos;
+        }
+      });
+      console.log('RESULT OF REDUCE', todos);
+      return todos;
     }
+  }
+

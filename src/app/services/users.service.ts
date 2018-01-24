@@ -1,14 +1,15 @@
 import { MappingService } from './mapping.service';
 import { CategoriesService } from './categories.service';
 import { FinalUser } from './../models/FinalUser';
-import { LocalStorageService } from './LocalStorage.service';
+import { FakeBackendService } from './fake-backend.service';
 import { User } from '../models/User';
 import { Todo } from '../models/Todo';
 import * as Rx from 'rxjs/Rx';
+import { StyledCategory } from '../models/StyledCategory';
 
 export class UserService {
     static selector = 'userService';
-    users$: any;
+    users$: any = Rx.Observable.fromPromise(this.fakeBackend.getUsers());
     private user: User;
     private users: any;
 
@@ -16,54 +17,50 @@ export class UserService {
 
     constructor (
         private $q: angular.IQService,
-        private localStorage: LocalStorageService,
+        private fakeBackend: FakeBackendService,
         private categoriesService: CategoriesService,
         private mappingService: MappingService
     ){
-        this.users$ = new Rx.BehaviorSubject <Todo[]>([]);
-        // 'ngInject';
+        
+        'ngInject';
         
     }
 
     signin (name: string, password: string) {
         
         return this.$q((resolve, reject) => {
-
-
-
-            this.localStorage.getUsers().then((result) => {
-                this.users = result;
-                this.users$.next(result);
+            this.users$
+            .subscribe((userInfo: any) => {
+                this.users = userInfo;
+                // this.users$.next(userInfo);
                 this.users = this.users.map((user:any) => this.mappingService.mapUser(user));
                 console.log(this.users);
-                this.finalUser = this.localStorage.findUserByProps(this.users, {name, password});
-
+                this.finalUser = this.fakeBackend.findUserByProps(this.users, {name, password});
+                console.log(this.finalUser);
 
                 if(!this.finalUser) {
                     this.user = new User(name, password);
                     this.finalUser = this.extendUser(this.user, []);
                     this.users = this.users.concat(this.finalUser);
-                    this.localStorage.set('users', this.users);
+                    this.fakeBackend.set('users', this.users);
                 }
 
                 
                 this.categoriesService.getCategoriesFromLs().then(
-                    categories => {
+                    (categories: StyledCategory[]) => {
                         console.log('Handle SUCCESS categories');
                         console.log(categories);
                         resolve();
                     },
-                    error => {
+                    (error:any) => {
                         console.log('Handle REJECT categories');
                         let categories: string[] = ['work', 'home', 'health', 'selfDeveloping'];
-                        this.localStorage.generateCategories(categories);
+                        this.fakeBackend.generateCategories(categories);
                         this.categoriesService.setStyledCategory(categories);
                         resolve();
                     }
                 );
-              
             });
-
         });
     }
 

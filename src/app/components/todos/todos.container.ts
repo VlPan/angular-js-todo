@@ -1,13 +1,13 @@
 import { Todo } from './../../models/Todo';
 import { CategoriesService } from './../../services/categories.service';
-import * as _ from 'underscore';
+
 
 import { TodoService } from '../../services/todo.service';
 
 import './todos.container.scss';
 import { UserService } from '../../services/users.service';
 import { LayoutService } from './../../services/layout.service';
-import { LocalStorageService } from '../../services/localStorage.service';
+import { FakeBackendService } from '../../services/fake-backend.service';
 
 
 class TodosController {
@@ -52,58 +52,31 @@ class TodosController {
   fetchData() {
       if (!this.todoService.getTodos()) {
         this.$scope.dataFetching = true;
-          this.todoService.getAll().then((todos: Todo[]) => {
-              this.todoService.todos$.subscribe((newTodos:any) => this.todos = newTodos);
-              // this.todos = todos;
-              console.log(this.todos);
+        this.todoService.getAll();
+        this.todoService.todos$.subscribe((newTodos: any) => {
+              this.todos = newTodos;
+              this.todoService.todos = newTodos;
               console.log('TODOS from todos service', this.todos);
-              this.$scope.resolvedTodos = this.getResolvedTodos(this.todos);
-              this.$scope.unresolvedTodos = this.getUnresolvedTodos(this.todos);
+              this.$scope.resolvedTodos = this.todoService.getResolvedTodos(this.todos);
+              this.$scope.unresolvedTodos = this.todoService.getUnresolvedTodos(this.todos);
               this.$scope.dataFetching = false;
               this.$scope.$applyAsync();
-          });
+        });
       } else {
           this.todos = this.todoService.getTodos();
           console.log('TODOS from todos service', this.todos);
-          this.$scope.resolvedTodos = this.getResolvedTodos(this.todos);
-          this.$scope.unresolvedTodos = this.getUnresolvedTodos(this.todos);
+          this.$scope.resolvedTodos = this.todoService.getResolvedTodos(this.todos);
+          this.$scope.unresolvedTodos = this.todoService.getUnresolvedTodos(this.todos);
           this.$scope.$applyAsync();
       }
 
   }
 
-    private getResolvedTodos(todos: Todo[]){
-      return this.styleCategories(todos.filter(todo => todo.resolved));
-        
-    }
+    
 
-    private getUnresolvedTodos(todos: Todo[]){
-        console.log('АРГУМЕНТ', todos);
-        return this.styleCategories(todos.filter(todo => !todo.resolved));
-    }
+    
 
-    private styleCategories(todos: any){
-        console.log('аргумент', todos);
-      todos = todos.map((todo: any, styledTodos:any)=>{
-          console.log(todo.categories[0]);
-          console.log(todo.categories[0] instanceof Object);
-        if(todo.categories[0]  instanceof Object){
-            console.log('already styled');
-        }else{
-          styledTodos = _.clone(todo);
-          styledTodos.categories = _.clone(todo.categories);
-          console.log('категории', styledTodos.categories);
-          styledTodos.categories = styledTodos.categories
-          .map((category:string) => this.categoriesService.bindIconToCategory(category));
-          console.log(styledTodos);
-          return styledTodos;
-        }
-      });
-
-        console.log('RESULT OF REDUCE', todos);
-        return todos;
-    }
-
+   
 }
 
 export class TodosContainer implements angular.IComponentOptions {

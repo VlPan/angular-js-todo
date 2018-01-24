@@ -29,7 +29,7 @@ import { LayoutService } from './../../services/layout.service';
  * Import Module Routing
  */
 import { routing } from './todos.routes';
-import { LocalStorageService } from '../../services/LocalStorage.service';
+import { FakeBackendService } from '../../services/fake-backend.service';
 import { CategoriesService } from '../../services/categories.service';
 
 
@@ -53,7 +53,7 @@ export const moduleName =
 
   .service(ContactsService.selector, ContactsService)
   .service(UserService.selector, UserService)
-  .service(LocalStorageService.selector, LocalStorageService)
+  .service(FakeBackendService.selector, FakeBackendService)
   .service(TodoService.selector, TodoService)
   .service(LayoutService.selector, LayoutService)
   .service(CategoriesService.selector, CategoriesService)

@@ -1,7 +1,7 @@
 import { Todo } from '../models/Todo';
 import { FinalUser } from '../models/FinalUser';
-export class LocalStorageService{
-    static selector = 'localStorage';
+export class FakeBackendService{
+    static selector = 'fakeBackend';
 
     constructor(
         private $q: angular.IQService,
@@ -36,7 +36,7 @@ export class LocalStorageService{
                     users = [];
                 }
                 resolve(users);
-            }, Math.random() * (2500 - 2500) + 2500);
+            }, Math.random() * (1500 - 800) + 800);
         });
     }
 

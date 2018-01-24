@@ -20,7 +20,6 @@ class AddTodoFormController {
   $onInit(){
     if(this.categoriesService.hasStyledCategories){
       console.log('INITED!');
-      // this.styledCategores = this.categoriesService.getStyledCategories();
       this.categoriesService.styledCategories$.subscribe((categories:any) => this.styledCategores = categories );
       console.log('STYLED CATEGORIES ' ,this.styledCategores);
     }

@@ -1,11 +1,11 @@
-import { LocalStorageService } from './LocalStorage.service';
+import { FakeBackendService } from './fake-backend.service';
 export class ContactsService {
   static selector = 'contactsService';
-  contacts: { id: number, lastName: string, firstName: string }[] = this.localStorage.get('contacts') || [];
+  contacts: { id: number, lastName: string, firstName: string }[] = this.fakeBackend.get('contacts') || [];
 
   constructor(
       private $q: angular.IQService,
-      private localStorage: LocalStorageService
+      private fakeBackend: FakeBackendService
   ) {
     'ngInject';
   }
@@ -29,11 +29,11 @@ export class ContactsService {
       };
       console.log(contactToAdd);
     this.contacts.push(contactToAdd);
-    this.localStorage.set('contacts', this.contacts);
+    this.fakeBackend.set('contacts', this.contacts);
   }
 
   remove(id: number) {
     this.contacts = this.contacts.filter(contact => contact.id !== id);
-    this.localStorage.set('contacts', this.contacts);
+    this.fakeBackend.set('contacts', this.contacts);
   }
 }
