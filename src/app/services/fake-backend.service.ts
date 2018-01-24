@@ -1,11 +1,13 @@
 import { Todo } from '../models/Todo';
 import { FinalUser } from '../models/FinalUser';
+import {MappingService} from './mapping.service';
 export class FakeBackendService{
     static selector = 'fakeBackend';
 
     constructor(
         private $q: angular.IQService,
-        private $timeout: ng.ITimeoutService
+        private $timeout: ng.ITimeoutService,
+        private mappingService: MappingService
     ) {
       'ngInject';
     }
@@ -45,7 +47,7 @@ export class FakeBackendService{
             let todos: Todo[];
             setTimeout(() => {
                 todos = this.findUserByProps(this.get('users'), {
-                    name: user.name, password: user.password
+                    nameServer: user.name, passwordServer: user.password
                 }).todos;
                 resolve(todos);
             }, Math.random() * (1500 - 700) + 700);
@@ -77,6 +79,12 @@ export class FakeBackendService{
                 resolve(categories);
                 }, Math.random() * (1000 - 700) + 700);
         });
+    }
+
+    public setUsers(users: FinalUser[]){
+        let convertedUsers = users.map((user) => this.mappingService.mapUserToServer(user));
+        console.info('user was mapped to server', convertedUsers);
+        this.set('users', convertedUsers);
     }
 }
 

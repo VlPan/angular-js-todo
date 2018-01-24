@@ -32,17 +32,17 @@ export class UserService {
             this.users$
             .subscribe((userInfo: any) => {
                 this.users = userInfo;
-                // this.users$.next(userInfo);
                 this.users = this.users.map((user:any) => this.mappingService.mapUser(user));
-                console.log(this.users);
+                console.info('USERS RECIEVED FROM server. After mapping:', this.users);
                 this.finalUser = this.fakeBackend.findUserByProps(this.users, {name, password});
-                console.log(this.finalUser);
+                console.log('current User setted:' , this.finalUser);
 
                 if(!this.finalUser) {
                     this.user = new User(name, password);
                     this.finalUser = this.extendUser(this.user, []);
                     this.users = this.users.concat(this.finalUser);
-                    this.fakeBackend.set('users', this.users);
+                    console.info('Set users to back end before mapping', this.users);
+                    this.fakeBackend.setUsers(this.users);
                 }
 
                 

@@ -33,13 +33,16 @@ export class TodoService{
         .subscribe(
           (userInfo:any) => {
             this.finalUser = this.userService.getUser();
+            console.info('current User is ', this.finalUser);
             this.users = this.userService.getUsers();
             this.todos$ = Rx.Observable.fromPromise(this.fakeBackend.getTodosByUser(this.finalUser));
             this.todos$
             .subscribe(
                  (todos: Todo[]) => {
-                  this.todos = todos;
+                  this.todos = todos || [];
+                  console.info('Todos of current User: ', todos);
                   this.todos = this.todos.map((todo:any) => this.mappingService.mapTodo(todo));
+                  console.info('Todos of current User After Mapping: ', this.todos);
                 }
             );
           }
@@ -78,9 +81,9 @@ export class TodoService{
         this.finalUser.todos = this.todos;
         this.users = this.users.map((user) => { 
           return user.name === this.finalUser.name ? this.finalUser : user;
-        });      
-
-        this.fakeBackend.set('users', this.users);
+        });
+        console.info('Users To set before mapping', this.users);
+        this.fakeBackend.setUsers(this.users);
       }
 
       remove(id: number) {
@@ -91,7 +94,8 @@ export class TodoService{
         this.users = this.users.map((user) => { 
           return user.name === this.finalUser.name ? this.finalUser : user;
         });
-        this.fakeBackend.set('users', this.users);
+          console.info('Users To set before mapping', this.users);
+          this.fakeBackend.setUsers(this.users);
       }
 
       resolveTodo(id:number){
@@ -107,7 +111,8 @@ export class TodoService{
             this.users = this.users.map((user) => { 
               return user.name === this.finalUser.name ? this.finalUser : user;
             });
-            this.fakeBackend.set('users', this.users);
+            console.info('Users To set before mapping', this.users);
+            this.fakeBackend.setUsers(this.users);
       }
 
       public getResolvedTodos(todos: Todo[]){
