@@ -2,6 +2,8 @@ import { StyledCategory } from './../../models/StyledCategory';
 import { CategoriesService } from './../../services/categories.service';
 import { LayoutService } from './../../services/layout.service';
 import './add-todo-form.component.scss';
+import * as _ from 'underscore';
+import * as angular from 'angular';
 class AddTodoFormController {
   name: string;
   body: string;
@@ -28,7 +30,12 @@ class AddTodoFormController {
   $onChanges(){
     if(this.categoriesService.hasStyledCategories){
       console.log('CAHNGED!');
-      this.styledCategores = this.categoriesService.getStyledCategories();
+      this.styledCategores = this.categoriesService.getStyledCategories().map((category) => {
+        return {
+            ...category,
+            selected : false
+          };
+      } );
       console.log(this.styledCategores);
     }
     
@@ -48,6 +55,10 @@ class AddTodoFormController {
     this.name = '';
     this.body = '';
     this.layoutService.closeAddTodoForm();
+    this.categories = [];
+      angular.forEach(this.styledCategores, function(category: any) {
+          category.selected = false;
+      });
   }
 
   addCategory($event: any){
@@ -63,7 +74,11 @@ class AddTodoFormController {
     else if(categoryName && !categoryCheked){
       if(this.isCategoryInArray(categoryName, this.categories)){
         let index = this.categories.indexOf(categoryName);
-        this.categories.splice(index, 1);
+        // this.categories = this.categories.splice(index, 1);
+        let removedArray:any = this.categories.splice(index, 1);
+        let difference = this.categories.filter(x => !removedArray.includes(x));
+        // this.categories = _.clone(difference);
+          this.categories = difference;
         console.log(this.categories);
       }
     }

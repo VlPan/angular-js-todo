@@ -64,7 +64,7 @@ class TodosController {
             this.$scope.$applyAsync();
         });
       } else {
-          this.todos = this.todoService.getTodos();
+          this.todos = this.todoService.todos;
           console.log('TODOS from todos service', this.todos);
           this.$scope.resolvedTodos = this.todoService.getResolvedTodos(this.todos);
           this.$scope.unresolvedTodos = this.todoService.getUnresolvedTodos(this.todos);

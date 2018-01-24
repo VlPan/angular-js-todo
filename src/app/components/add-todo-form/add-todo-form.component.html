@@ -18,6 +18,7 @@
          class="hw-add-todo-form__container">{{styledCategory.name}}
             <input 
                type="checkbox"
+               ng-model="styledCategory.selected"
                name="{{styledCategory.name}}"
                value="{{styledCategory.name}}"
                id="{{styledCategory.name}}-category"

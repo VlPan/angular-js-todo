@@ -48,7 +48,8 @@ export class FakeBackendService{
             setTimeout(() => {
                 todos = this.findUserByProps(this.get('users'), {
                     nameServer: user.name, passwordServer: user.password
-                }).todos;
+                }).todosServer;
+                console.info('Todos of current User', todos);
                 resolve(todos);
             }, Math.random() * (1500 - 700) + 700);
         });
