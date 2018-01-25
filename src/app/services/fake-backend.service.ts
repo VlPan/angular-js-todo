@@ -85,7 +85,6 @@ export class FakeBackendService{
             setTimeout(() => {
                 let convertedUsers = users.map((user) => this.userConverter.mapUserToServer(user));
                 this.set('users', convertedUsers);
-                console.info('user was setted', convertedUsers);
                 resolve(convertedUsers);
             }, Math.random() * (1200 - 700) + 700);
             

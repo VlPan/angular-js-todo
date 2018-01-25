@@ -48,7 +48,6 @@ class TodosController {
             this.$scope.resolvedTodos = this.todoService.getResolvedTodos(this.todos);
             this.$scope.unresolvedTodos = this.todoService.getUnresolvedTodos(this.todos);
             this.$scope.dataFetching = false;
-            this.$scope.$applyAsync();
         });
       } else {
           this.todos = this.todoService.todos;

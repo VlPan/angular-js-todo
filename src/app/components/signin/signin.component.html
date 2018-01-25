@@ -54,7 +54,8 @@
                         hw-btn--border-radius
                         hw-btn--animated
                         hw-btn--medium-font"
-                        ng-click="$ctrl.submit(myForm.username.$viewValue, myForm.password.$viewValue)"
+                        
+                        ng-click="$ctrl.submit(username, password)"
                         ng-disabled="myForm.$invalid">login</button>
             </div>
 

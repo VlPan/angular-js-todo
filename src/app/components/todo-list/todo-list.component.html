@@ -5,13 +5,13 @@
       ng-class="{'todo-list--move-in-top': $ctrl.layoutService.todoIsDeleting}">
       <div class="todo-list__flex-row">
             <div class="todo-list__name" ng-class="{'todo-list__name--hot': todo.urgent}">
-                  {{todo.name}}
+                  {{::todo.name}}
             </div>
             <div class="todo-list__category-container">
                   <div ng-repeat="category in todo.categories track by $index" >
-                        <div class="todo-list__category-box todo-list__category-box--{{category.modificator}}">
-                              <i class="fa fa-{{category.icon}}" aria-hidden="true"></i>
-                              <h1 class="todo-list__category-name">{{category.name}}</h1>
+                        <div class="todo-list__category-box todo-list__category-box--{{::category.modificator}}">
+                              <i class="fa fa-{{::category.icon}}" aria-hidden="true"></i>
+                              <h1 class="todo-list__category-name">{{::category.name}}</h1>
                         </div>
                   </div>
             </div>
@@ -21,17 +21,17 @@
 
             <div class="todo-list__right">
                   <div class="todo-list__date">
-                        {{todo.creationDate | date:'dd.MM.y'}}
+                        {{::todo.creationDate | date:'dd.MM.y'}}
                   </div>
 
-                  <label for="toggle_body-{{todo.id}}" class="todo-list__show-body"></label>
+                  <label for="toggle_body-{{::todo.id}}" class="todo-list__show-body"></label>
                   <button class="todo-list__delete" ng-click="$ctrl.remove(todo)"></button>
             </div>
       </div>
 
-      <input type="checkbox" class="todo-list__fake-checkbox" id="toggle_body-{{todo.id}}"> 
+      <input type="checkbox" class="todo-list__fake-checkbox" id="toggle_body-{{::todo.id}}"> 
       <div class="todo-list__body">
-            {{todo.body}}
+            {{::todo.body}}
       </div>
 
       <div class="u-center-text">
@@ -41,7 +41,7 @@
                   hw-btn--medium-padding
                   hw-btn--border-radius
                   hw-btn--animated
-                  hw-btn--medium-font" ng-click="$ctrl.resolve(todo)" ng-disabled="myForm.$invalid">Done
+                  hw-btn--medium-font" ng-click="$ctrl.resolve(todo)">Done
             </button>
       </div>
 </div>
@@ -56,33 +56,33 @@
       ng-class="{'todo-list--move-in-bottom': $ctrl.layoutService.todoIsDeleting}">
       <div class="todo-list__flex-row">
             <div class="todo-list__name">
-                  {{todo.name}}
+                  {{::todo.name}}
             </div>
 
             <div class="todo-list__category-container">
                   <div 
                   ng-repeat="category in todo.categories
                   track by $index" >
-                        <div class="todo-list__category-box todo-list__category-box--{{category.modificator}}">
+                        <div class="todo-list__category-box todo-list__category-box--{{::category.modificator}}">
                               <i class="fa fa-{{category.icon}}" aria-hidden="true"></i>
-                              <h1 class="todo-list__category-name">{{category.name}}</h1>
+                              <h1 class="todo-list__category-name">{{::category.name}}</h1>
                         </div>
                   </div>
             </div>
 
             <div class="todo-list__right">
                   <div class="todo-list__date">
-                        {{todo.creationDate | date:'dd.MM.y'}}
+                        {{::todo.creationDate | date:'dd.MM.y'}}
                   </div>
 
-                  <label for="toggle_body-{{todo.id}}" class="todo-list__show-body"></label>
+                  <label for="toggle_body-{{::todo.id}}" class="todo-list__show-body"></label>
                   <button class="todo-list__delete" ng-click="$ctrl.remove(todo)"></button>
             </div>
       </div>
 
       <input type="checkbox" class="todo-list__fake-checkbox" id="toggle_body-{{todo.id}}"> 
       <div class="todo-list__body">
-            {{todo.body}}
+            {{::todo.body}}
       </div>
 
 

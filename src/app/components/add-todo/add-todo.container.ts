@@ -28,7 +28,6 @@ class AddTodoController {
 
   closeForm(){
     this.layoutService.closeAddTodoForm();
-    console.log(this.layoutService.isAddTodoFormOpen);
   }
 }
 

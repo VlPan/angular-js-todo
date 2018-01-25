@@ -47,7 +47,7 @@ class AddTodoFormController {
     const body = this.body;
     const urgent = this.urgent;
     const categories = this.categories;
-    console.log('User is saving');
+
 
     this.userIsSaving = true;
     this.todoAdded({
@@ -62,7 +62,6 @@ class AddTodoFormController {
         angular.forEach(this.styledCategores, function(category: any) {
             category.selected = false;
         });
-      console.log('User saved succesfully');
       this.userIsSaving = false;
     });
     
