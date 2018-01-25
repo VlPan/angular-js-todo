@@ -1,4 +1,6 @@
+
 <form name="addTodoForm" ng-submit="$ctrl.submit()" novalidate>
+    
   <div class="form-group">
     <label>Name</label>
     <input type="text" class="form-control" ng-model="$ctrl.name" placeholder="Name of Todo" required>
@@ -53,7 +55,13 @@
           hw-btn--border-radius
           hw-btn--animated
           hw-btn--medium-font"
-          ng-disabled="addTodoForm.$invalid">Add</button>
+          ng-disabled="addTodoForm.$invalid">Add 
+      </button>
+        <div ng-if="$ctrl.userIsSaving" class="hw-add-todo-form__saving">
+            <div class="hw-loader hw-loader--blue">
+                  <span>{</span><span>}</span>
+            </div>
+        </div>
   </div>
 </form>
 

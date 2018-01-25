@@ -47,6 +47,7 @@ export class TodoService{
   
 
     add(todo: { name: string, body: string, urgent: boolean, categories: string[] }) {
+      return this.$q((resolve, reject) => {
         let highestId = 0;
         if(this.todos && this.todos.length !== 0){
           highestId = this.todos
@@ -69,7 +70,11 @@ export class TodoService{
         this.users = this.users.map((user) => { 
           return user.name === this.finalUser.name ? this.finalUser : user;
         });
-        this.fakeBackend.setUsers(this.users);
+        this.fakeBackend.setUsers(this.users).then(()=>{
+          resolve();
+        });
+      });
+       
       }
 
       remove(id: number) {

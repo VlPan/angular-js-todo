@@ -9,6 +9,7 @@ class AddTodoController {
 
   fetchData: () => void;
   constructor(
+      private $q: angular.IQService,
       private todoService: TodoService,
       private layoutService: LayoutService
   ) {
@@ -16,8 +17,13 @@ class AddTodoController {
   }
 
   add(todo: { name: string, body: string, categories: string[], urgent: boolean })  {
-    this.todoService.add(todo);
-    this.fetchData();
+    return this.$q((resolve)=>{
+      this.todoService.add(todo).then(() => {
+        this.fetchData();
+        resolve();
+      });
+    });
+    
   }
 
   closeForm(){

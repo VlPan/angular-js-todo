@@ -32,10 +32,9 @@ class TodoListController {
       this.layoutService.deleteTodo().then(()=>{
           this.todoRemoved({
               $event: {
-                        id: todo.id
-                     }
-          });
-          this.$scope.$applyAsync();
+                    id: todo.id
+                }
+          });  
       });
   }
 

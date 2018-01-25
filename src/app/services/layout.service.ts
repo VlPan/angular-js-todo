@@ -3,6 +3,7 @@ export class LayoutService{
     isAddTodoFormOpen: boolean = false;
     todoIsDeleting: boolean = false;
 
+
     constructor(
         private $q: angular.IQService
     ) {
@@ -26,4 +27,5 @@ export class LayoutService{
             }, 400);
         });
     }
+
 }
