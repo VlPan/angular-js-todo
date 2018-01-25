@@ -6,7 +6,6 @@ export class FakeBackendService{
 
     constructor(
         private $q: angular.IQService,
-        private $timeout: ng.ITimeoutService,
         private mappingService: MappingService
     ) {
       'ngInject';

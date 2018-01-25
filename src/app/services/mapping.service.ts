@@ -1,6 +1,5 @@
 import { Todo } from './../models/Todo';
 import { FinalUser } from './../models/FinalUser';
-import { User } from './../models/User';
 export class MappingService{
     static selector = 'mappingService';
  

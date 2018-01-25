@@ -3,7 +3,6 @@ import { FinalUser } from './../models/FinalUser';
 import { FakeBackendService } from './fake-backend.service';
 import { Todo } from '../models/Todo';
 import { UserService } from './users.service';
-import { Category } from '../models/Category';
 import { CategoriesService } from './categories.service';
 import * as _ from 'underscore';
 import * as Rx from 'rxjs/Rx';
@@ -29,9 +28,6 @@ export class TodoService{
     }
 
     getAll(): any{
-        // this.userService.users$
-        // .subscribe(
-        //   (userInfo:any) => {
             this.finalUser = this.userService.getUser();
             console.info('current User is', this.finalUser);
             this.users = this.userService.getUsers();
@@ -45,8 +41,6 @@ export class TodoService{
                   console.info('Todos of current User After Mapping: ', this.todos);
                 }
             );
-        //   }
-        // );
     }
 
     getTodos(): Todo[]{

@@ -4,7 +4,6 @@ import './loader.component.scss';
 
 import { UserService } from '../../services/users.service';
 
-import * as Rx from 'rxjs/Rx';
 
 
 

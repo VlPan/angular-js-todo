@@ -10,6 +10,14 @@
 
 
 <body>
-    <root>Loading</root>
+    <root>
+       <div ng-if="$ctrl.$scope.infoFetching">
+          <div class="hw__loader-container">
+             <div class="hw-loader hw-loader--blue">
+                <span>{</span><span>}</span>
+             </div>
+          </div>
+       </div>
+    </root>
 </body>
 </html>

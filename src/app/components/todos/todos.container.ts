@@ -1,13 +1,7 @@
-import { Todo } from './../../models/Todo';
-import { CategoriesService } from './../../services/categories.service';
-
-
-import { TodoService } from '../../services/todo.service';
-
 import './todos.container.scss';
+import { TodoService } from '../../services/todo.service';
 import { UserService } from '../../services/users.service';
 import { LayoutService } from './../../services/layout.service';
-import { FakeBackendService } from '../../services/fake-backend.service';
 
 
 class TodosController {
@@ -19,7 +13,6 @@ class TodosController {
       private todoService: TodoService,
       private userService: UserService,
       private layoutService: LayoutService,
-      private categoriesService: CategoriesService,
       private $location: ng.ILocationService, 
       private $scope: any
   ) {
@@ -54,8 +47,6 @@ class TodosController {
         this.$scope.dataFetching = true;
         this.todoService.getAll();
         this.todoService.todos$.subscribe(() => {
-
-
             this.todos = this.todoService.todos;
             console.log('TODOS from todos service', this.todoService.todos);
             this.$scope.resolvedTodos = this.todoService.getResolvedTodos(this.todos);
@@ -72,12 +63,6 @@ class TodosController {
       }
 
   }
-
-    
-
-    
-
-   
 }
 
 export class TodosContainer implements angular.IComponentOptions {

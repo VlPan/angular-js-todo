@@ -1,6 +1,4 @@
 import { StyledCategory } from './../../models/StyledCategory';
-import { TodoService } from './../../services/todo.service';
-import { CategoriesService } from './../../services/categories.service';
 import { LayoutService } from './../../services/layout.service';
 
 import './todo-list.component.scss';

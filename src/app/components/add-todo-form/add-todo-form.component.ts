@@ -2,7 +2,6 @@ import { StyledCategory } from './../../models/StyledCategory';
 import { CategoriesService } from './../../services/categories.service';
 import { LayoutService } from './../../services/layout.service';
 import './add-todo-form.component.scss';
-import * as _ from 'underscore';
 import * as angular from 'angular';
 class AddTodoFormController {
   name: string;
@@ -78,7 +77,7 @@ class AddTodoFormController {
         let removedArray:any = this.categories.splice(index, 1);
         let difference = this.categories.filter(x => !removedArray.includes(x));
         // this.categories = _.clone(difference);
-          this.categories = difference;
+          // this.categories = difference;
         console.log(this.categories);
       }
     }
