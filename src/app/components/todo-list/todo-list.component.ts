@@ -23,9 +23,7 @@ class TodoListController {
 
 
   $onInit() {
-    if(this.userService.isAuthorized()){
-      this.username = this.userService.getUserName();
-    }
+    this.username = this.userService.getUserName();
   }
 
   remove(todo: Todo) {

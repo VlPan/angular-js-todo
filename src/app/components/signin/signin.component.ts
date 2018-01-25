@@ -18,11 +18,7 @@ class SignInController {
       }
 
     $onInit(){
-
-        if(this.userService.isAuthorized()){
-            alert('You are already authorized. Redirect to your todos!');
-            this.$state.go('todos');
-        }
+        this.userService.checkIfLogged();
     }
     
     submit(name: string, password: string): void {

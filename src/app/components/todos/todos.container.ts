@@ -20,10 +20,7 @@ class TodosController {
     }
 
   $onInit() {
-    if(!this.userService.isAuthorized()){
-      alert('You should authorize first!');
-      this.$location.url('/app/signin');
-    }
+    this.userService.checkIfNotLogged();
     this.fetchData();
   }
 

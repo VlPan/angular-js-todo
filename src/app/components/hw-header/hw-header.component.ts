@@ -7,6 +7,7 @@ class HeaderController {
   constructor(
       private userService: UserService,
       private $state: angular.ui.IStateService,
+      private $window: angular.IWindowService
   ) {
       'ngInject';
       this.userName = this.userService.getUserName();
@@ -15,6 +16,7 @@ class HeaderController {
   signout(){
     this.userService.signout();
     this.$state.go('signin');
+    this.$window.location.reload();
   }
 }
 

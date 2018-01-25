@@ -19,7 +19,8 @@ export class UserService {
         private $q: angular.IQService,
         private fakeBackend: FakeBackendService,
         private categoriesService: CategoriesService,
-        private userConverter: UserConverterService
+        private userConverter: UserConverterService,
+        private $state: angular.ui.IStateService
     ){
         
         'ngInject';
@@ -60,6 +61,7 @@ export class UserService {
 
     signout() {
         this.finalUser = null;
+        this.users = null;
     }
 
     getUserName(){
@@ -76,6 +78,20 @@ export class UserService {
 
     isAuthorized(){
         return !!this.finalUser;
+    }
+
+    checkIfLogged(){
+        if(this.isAuthorized()){
+            this.$state.go('todos');
+            alert('You are already authorizate. Redirect to your todos');
+        }
+    }
+
+    checkIfNotLogged(){
+        if(!this.isAuthorized()){
+            this.$state.go('signin');
+            alert('You sould authorizate first');
+        }
     }
     
     private extendUser(user: User, todos:Todo[]) : FinalUser{
