@@ -20,22 +20,18 @@ class AddTodoFormController {
 
   $onInit(){
     if(this.categoriesService.hasStyledCategories){
-      console.log('INITED!');
       this.categoriesService.styledCategories$.subscribe((categories:any) => this.styledCategores = categories );
-      console.log('STYLED CATEGORIES ' ,this.styledCategores);
     }
   }
 
   $onChanges(){
     if(this.categoriesService.hasStyledCategories){
-      console.log('CAHNGED!');
       this.styledCategores = this.categoriesService.getStyledCategories().map((category) => {
         return {
             ...category,
             selected : false
           };
       } );
-      console.log(this.styledCategores);
     }
     
   }
@@ -45,7 +41,6 @@ class AddTodoFormController {
     const body = this.body;
     const urgent = this.urgent;
     const categories = this.categories;
-    console.log(categories);
     this.todoAdded({
       $event: {
         todo: { name, body, categories, urgent}
@@ -67,18 +62,14 @@ class AddTodoFormController {
     if(categoryName && categoryCheked){
       if(!this.isCategoryInArray(categoryName, this.categories)){
         this.categories = this.categories.concat($event.target.name);
-        console.log(this.categories);
       }
     }
     else if(categoryName && !categoryCheked){
       if(this.isCategoryInArray(categoryName, this.categories)){
         let index = this.categories.indexOf(categoryName);
-        // this.categories = this.categories.splice(index, 1);
         let removedArray:any = this.categories.splice(index, 1);
         let difference = this.categories.filter(x => !removedArray.includes(x));
-        // this.categories = _.clone(difference);
-          // this.categories = difference;
-        console.log(this.categories);
+        this.categories = difference;
       }
     }
   }

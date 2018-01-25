@@ -8,6 +8,8 @@ import { UserService } from '../../services/users.service';
 
 import { routing } from './signin.routes';
 import { FakeBackendService } from '../../services/fake-backend.service';
+import {UserConverterService} from '../../services/user-converter.service';
+import {TodoConverterService} from '../../services/todo-converter.service';
 
 
 export const moduleName =
@@ -20,6 +22,8 @@ export const moduleName =
 
         .service(UserService.selector, UserService)
         .service(FakeBackendService.selector, FakeBackendService)
+        .service(TodoConverterService.selector, TodoConverterService)
+        .service(UserConverterService.selector, UserConverterService)
         
         .config(routing)
         .name;

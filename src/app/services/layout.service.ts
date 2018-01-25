@@ -22,7 +22,6 @@ export class LayoutService{
         return new Promise((resolve, reject)=>{
             setTimeout(()=>{
                 this.todoIsDeleting = false;
-                console.log(this.todoIsDeleting);
                 resolve();
             }, 400);
         });

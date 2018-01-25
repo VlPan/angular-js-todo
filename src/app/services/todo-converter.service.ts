@@ -1,22 +1,14 @@
 import { Todo } from './../models/Todo';
-import { FinalUser } from './../models/FinalUser';
-export class MappingService{
-    static selector = 'mappingService';
- 
+export class TodoConverterService{
+    static selector = 'todoConverter';
+
 
     constructor(
         private $q: angular.IQService
     ) {
-      'ngInject';
+        'ngInject';
     }
 
-    mapUser(entity: any): FinalUser{
-        return {
-            name: entity.nameServer,
-            password: entity.passwordServer,
-            todos: entity.todosServer.map((todo:any) => this.mapTodo(todo))
-        };
-    }
 
     mapTodo(entity: any): Todo{
         return {
@@ -27,14 +19,6 @@ export class MappingService{
             resolved: entity.resolvedServer,
             categories: entity.categoriesServer,
             urgent: entity.urgentServer
-        };
-    }
-
-    mapUserToServer(user: FinalUser){
-        return {
-            nameServer: user.name,
-            passwordServer: user.password,
-            todosServer: user.todos.map((todo) => this.mapTodoToServer(todo))
         };
     }
 

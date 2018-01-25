@@ -10,7 +10,6 @@ class HeaderController {
   ) {
       'ngInject';
       this.userName = this.userService.getUserName();
-      console.log(this.userName);
     }
 
   signout(){

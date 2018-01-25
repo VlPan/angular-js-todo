@@ -1,4 +1,4 @@
-import { MappingService } from './../../services/mapping.service';
+
 
 
 // temporary, until https://github.com/Microsoft/TypeScript/issues/10178 is implemented
@@ -24,6 +24,8 @@ import { ContactsService } from '../../services/contacts.service';
 import { UserService } from '../../services/users.service';
 import { TodoService } from '../../services/todo.service';
 import { LayoutService } from './../../services/layout.service';
+import {TodoConverterService} from '../../services/todo-converter.service';
+import {UserConverterService} from '../../services/user-converter.service';
 
 /**
  * Import Module Routing
@@ -31,6 +33,7 @@ import { LayoutService } from './../../services/layout.service';
 import { routing } from './todos.routes';
 import { FakeBackendService } from '../../services/fake-backend.service';
 import { CategoriesService } from '../../services/categories.service';
+
 
 
 
@@ -57,7 +60,8 @@ export const moduleName =
   .service(TodoService.selector, TodoService)
   .service(LayoutService.selector, LayoutService)
   .service(CategoriesService.selector, CategoriesService)
-  .service(MappingService.selector, MappingService)
+  .service(TodoConverterService.selector, TodoConverterService)
+  .service(UserConverterService.selector, UserConverterService)
 
  
   .config(routing)

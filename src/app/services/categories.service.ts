@@ -26,7 +26,6 @@ export class CategoriesService {
                         resolve(categories);
                         
                     }else{
-                        console.log('rejected categories. No categories in LS');
                         this.styledCategories$.error('rejected categories. No categories in LS');
                         reject(new Error('rejected categories. No categories in LS'));
                     }
@@ -44,7 +43,6 @@ export class CategoriesService {
     }
 
     setStyledCategory(categories: string[]){
-        console.log(categories);
         let styled = categories.map((category: string) => {
             return this.bindIconToCategory(category);
         });

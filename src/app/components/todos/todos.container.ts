@@ -48,7 +48,6 @@ class TodosController {
         this.todoService.getAll();
         this.todoService.todos$.subscribe(() => {
             this.todos = this.todoService.todos;
-            console.log('TODOS from todos service', this.todoService.todos);
             this.$scope.resolvedTodos = this.todoService.getResolvedTodos(this.todos);
             this.$scope.unresolvedTodos = this.todoService.getUnresolvedTodos(this.todos);
             this.$scope.dataFetching = false;
@@ -56,7 +55,6 @@ class TodosController {
         });
       } else {
           this.todos = this.todoService.todos;
-          console.log('TODOS from todos service', this.todos);
           this.$scope.resolvedTodos = this.todoService.getResolvedTodos(this.todos);
           this.$scope.unresolvedTodos = this.todoService.getUnresolvedTodos(this.todos);
           this.$scope.$applyAsync();

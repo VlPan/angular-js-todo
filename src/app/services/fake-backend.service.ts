@@ -1,12 +1,12 @@
 import { Todo } from '../models/Todo';
 import { FinalUser } from '../models/FinalUser';
-import {MappingService} from './mapping.service';
+import {UserConverterService} from './user-converter.service';
 export class FakeBackendService{
     static selector = 'fakeBackend';
 
     constructor(
         private $q: angular.IQService,
-        private mappingService: MappingService
+        private userConverter: UserConverterService
     ) {
       'ngInject';
     }
@@ -48,7 +48,6 @@ export class FakeBackendService{
                 todos = this.findUserByProps(this.get('users'), {
                     nameServer: user.name, passwordServer: user.password
                 }).todosServer;
-                console.info('Todos of current User', todos);
                 resolve(todos);
             }, Math.random() * (1500 - 700) + 700);
         });
@@ -82,8 +81,7 @@ export class FakeBackendService{
     }
 
     public setUsers(users: FinalUser[]){
-        let convertedUsers = users.map((user) => this.mappingService.mapUserToServer(user));
-        console.info('user was mapped to server', convertedUsers);
+        let convertedUsers = users.map((user) => this.userConverter.mapUserToServer(user));
         this.set('users', convertedUsers);
     }
 }

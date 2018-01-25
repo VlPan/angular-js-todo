@@ -27,7 +27,6 @@ export class ContactsService {
         firstName: contact.firstName,
         lastName: contact.lastName
       };
-      console.log(contactToAdd);
     this.contacts.push(contactToAdd);
     this.fakeBackend.set('contacts', this.contacts);
   }
