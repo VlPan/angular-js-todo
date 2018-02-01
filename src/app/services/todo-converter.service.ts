@@ -10,7 +10,7 @@ export class TodoConverterService{
     }
 
 
-    mapTodo(entity: any): Todo{
+    fromDto(entity: any): Todo{
         return {
             name: entity.nameServer,
             body: entity.bodyServer,
@@ -23,7 +23,7 @@ export class TodoConverterService{
     }
 
 
-    mapTodoToServer(todo: Todo){
+    toDto(todo: Todo){
         return {
             nameServer: todo.name,
             bodyServer: todo.body,

@@ -42,6 +42,8 @@ export class FakeBackendService{
     }
 
     getTodosByUser(user: FinalUser){
+        console.log(user.name);
+        console.log(user.password);
         return this.$q((resolve, reject)=>{
             let todos: Todo[];
             setTimeout(() => {
@@ -83,7 +85,7 @@ export class FakeBackendService{
     public setUsers(users: FinalUser[]){
         return this.$q((resolve, reject) => {
             setTimeout(() => {
-                let convertedUsers = users.map((user) => this.userConverter.mapUserToServer(user));
+                let convertedUsers = users.map((user) => this.userConverter.toDto(user));
                 this.set('users', convertedUsers);
                 resolve(convertedUsers);
             }, Math.random() * (1200 - 700) + 700);

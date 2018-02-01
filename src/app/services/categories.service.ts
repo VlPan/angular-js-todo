@@ -1,6 +1,7 @@
 import { StyledCategory } from './../models/StyledCategory';
 import {FakeBackendService} from './fake-backend.service';
 import * as Rx from 'rxjs/Rx';
+import {CategoryConverterService} from './category-converter.service';
 
 export class CategoriesService {
     static selector = 'categoriesService';
@@ -10,28 +11,25 @@ export class CategoriesService {
     
     constructor(
         private $q: angular.IQService,
-        private fakeBackend: FakeBackendService
+        private fakeBackend: FakeBackendService,
+        private categoryConverter: CategoryConverterService
     ) {
       'ngInject';
     }
 
     getCategoriesFromLs(){
-       
-        
-       
-        return this.$q((resolve, reject) => {
-            this.fakeBackend.getCategories().then((categories: string[]) => {
+            return this.fakeBackend.getCategories()
+                .then((categories: string[]) => {
                     if(categories instanceof Array && categories.length !== 0){
-                        this.styledCategories$.next(this.setStyledCategory(categories));
-                        resolve(categories);
+
+                        // this.styledCategories$.next(this.setStyledCategory(categories));
+                        this.styledCategories$.next(this.categoryConverter.convertCategories(categories));
+                        return categories;
                         
                     }else{
                         this.styledCategories$.error('rejected categories. No categories in LS');
-                        reject(new Error('rejected categories. No categories in LS'));
                     }
             });
-           
-        });
     }
 
     getStyledCategories(){
@@ -43,28 +41,6 @@ export class CategoriesService {
     }
 
     setStyledCategory(categories: string[]){
-        let styled = categories.map((category: string) => {
-            return this.bindIconToCategory(category);
-        });
-        return this.styledCategories =  styled;
+        return this.styledCategories = this.categoryConverter.convertCategories(categories);
     }
-
-    bindIconToCategory(categoryName:string): StyledCategory{
-        switch(categoryName){
-            case 'work':  
-            return new StyledCategory(categoryName, 'briefcase', 'blue');
-           
-            case 'home':
-            return new StyledCategory(categoryName, 'home', 'yellow');
-           
-            case 'health':
-            return new StyledCategory(categoryName, 'heart', 'pink');
-           
-            case 'selfDeveloping': 
-            return new StyledCategory(categoryName, 'diamond', 'green');
-          
-        }
-    }
-
-
 }

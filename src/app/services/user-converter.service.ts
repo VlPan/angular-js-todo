@@ -12,19 +12,19 @@ export class UserConverterService{
         'ngInject';
     }
 
-    mapUser(entity: any): FinalUser{
+    fromDto(entity: any): FinalUser{
         return {
             name: entity.nameServer,
             password: entity.passwordServer,
-            todos: entity.todosServer.map((todo:any) => this.todoConverter.mapTodo(todo))
+            todos: entity.todosServer.map((todo:any) => this.todoConverter.fromDto(todo))
         };
     }
 
-    mapUserToServer(user: FinalUser){
+    toDto(user: FinalUser){
         return {
             nameServer: user.name,
             passwordServer: user.password,
-            todosServer: user.todos.map((todo) => this.todoConverter.mapTodoToServer(todo))
+            todosServer: user.todos.map((todo) => this.todoConverter.toDto(todo))
         };
     }
 

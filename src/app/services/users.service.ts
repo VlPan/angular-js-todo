@@ -33,7 +33,7 @@ export class UserService {
             this.users$
             .subscribe((userInfo: any) => {
                 this.users = userInfo;
-                this.users = this.users.map((user:any) => this.userConverter.mapUser(user));
+                this.users = this.users.map((user:any) => this.userConverter.fromDto(user));
                 this.finalUser = this.fakeBackend.findUserByProps(this.users, {name, password});
 
                 if(!this.finalUser) {
@@ -45,15 +45,16 @@ export class UserService {
 
                 
                 this.categoriesService.getCategoriesFromLs().then(
-                    (categories: StyledCategory[]) => {
-                        resolve();
-                    },
-                    (error:any) => {
-                        let categories: string[] = ['work', 'home', 'health', 'selfDeveloping'];
-                        this.fakeBackend.generateCategories(categories);
-                        this.categoriesService.setStyledCategory(categories);
-                        resolve();
-                    }
+                    this.categoriesService.styledCategories$.subscribe(
+                        (categories:any) => {
+                            resolve();
+                        },
+                        (error: any) => {
+                            let categories: string[] = ['work', 'home', 'health', 'selfDeveloping'];
+                            this.fakeBackend.generateCategories(categories);
+                            this.categoriesService.setStyledCategory(categories);
+                            resolve();
+                        })
                 );
             });
         });

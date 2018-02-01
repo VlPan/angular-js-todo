@@ -3,7 +3,6 @@ import { CategoriesService } from './../../services/categories.service';
 import { LayoutService } from './../../services/layout.service';
 import './add-todo-form.component.scss';
 import * as angular from 'angular';
-import * as Rx from 'rxjs/Rx';
 import { UserService } from '../../services/users.service';
 class AddTodoFormController {
   name: string;
@@ -17,7 +16,6 @@ class AddTodoFormController {
   constructor(
     private layoutService: LayoutService,
     private categoriesService: CategoriesService,
-    private userService: UserService
   ) {
     'ngInject';
   }
