@@ -41,10 +41,7 @@ module.exports = function(config) {
     },
 
     coverageReporter: {
-      type: 'json',
-      subdir: '.',
-      dir: 'build/coverage/',
-      file: 'coverage.json'
+      type: 'text'
     },
 
     plugins: [
