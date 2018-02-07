@@ -2,23 +2,23 @@ module.exports = function(config) {
 
   var browsers = ['PhantomJS'];
 
-  if (process.env.TRAVIS) {
-    browsers.push('Chrome_Travis');
-  } else {
-    browsers.push('Chrome');
-  }
+  // if (process.env.TRAVIS) {
+  //   browsers.push('Chrome_Travis');
+  // } else {
+  //   browsers.push('Chrome');
+  // }
 
   config.set({
     singleRun: true,
 
     browsers: browsers,
 
-    customLaunchers: {
-      Chrome_Travis: {
-        base: 'Chrome',
-        flags: ['--no-sandbox']
-      }
-    },
+    // customLaunchers: {
+    //   Chrome_Travis: {
+    //     base: 'Chrome',
+    //     flags: ['--no-sandbox']
+    //   }
+    // },
 
     frameworks: [
       'jasmine'
@@ -31,7 +31,8 @@ module.exports = function(config) {
     reporters: ['progress', 'coverage'],
 
     preprocessors: {
-      './src/index.spec.js': ['coverage', 'webpack', 'sourcemap'],
+      // './src/index.spec.js': ['coverage', 'webpack', 'sourcemap'],
+      './src/index.spec.js': ['coverage', 'webpack'],
     },
 
     webpack: require('./webpack-test.config'),
@@ -48,9 +49,9 @@ module.exports = function(config) {
       require('karma-jasmine'),
       require('karma-coverage'),
       require('karma-phantomjs-launcher'),
-      require('karma-chrome-launcher'),
+      // require('karma-chrome-launcher'),
       require('karma-webpack'),
-      require('karma-sourcemap-loader')
+      // require('karma-sourcemap-loader')
     ]
   });
 };

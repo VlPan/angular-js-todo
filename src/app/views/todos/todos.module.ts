@@ -8,7 +8,6 @@ import { HeaderComponent } from './../../components/hw-header/hw-header.componen
 import { TodosContainer } from '../../components/todos/todos.container';
 import { AddTodoContainer } from '../../components/add-todo/add-todo.container';
 
-import { ContactsService } from '../../services/contacts.service';
 import { UserService } from '../../services/users.service';
 import { TodoService } from '../../services/todo.service';
 import { LayoutService } from './../../services/layout.service';
@@ -30,7 +29,6 @@ export const moduleName =
   .component(HeaderComponent.selector, HeaderComponent)
   .component(TodosContainer.selector, TodosContainer)
   .component(AddTodoContainer.selector, AddTodoContainer)
-  .service(ContactsService.selector, ContactsService)
   .service(UserService.selector, UserService)
   .service(FakeBackendService.selector, FakeBackendService)
   .service(TodoService.selector, TodoService)

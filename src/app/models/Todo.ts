@@ -1,4 +1,4 @@
-import { Category } from "@uirouter/angularjs";
+import { Category } from '@uirouter/angularjs';
 
 export class Todo {
     id: number;

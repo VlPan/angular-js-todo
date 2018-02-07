@@ -2,6 +2,7 @@ import * as angular from 'angular';
 import 'angular-mocks';
 import { CategoriesService } from './categories.service';
 
+
 describe('Contacts container', () => {
 
     let _fakeBackend = {
@@ -25,4 +26,14 @@ describe('Contacts container', () => {
   it('should exist', angular.mock.inject((categoriesService: CategoriesService) => {
     expect(categoriesService).toBeDefined();
   }));
+
+
+  it('should call `fakeBackend.getCategories`when getCategoriesFromLs called', angular.mock.inject((
+    categoriesService: CategoriesService,
+    $q: angular.IQService) => {
+    _fakeBackend.getCategories.and.returnValue($q.resolve());
+    categoriesService.getCategoriesFromLs();
+    expect(_fakeBackend.getCategories).toHaveBeenCalled();
+}));
+
 });
