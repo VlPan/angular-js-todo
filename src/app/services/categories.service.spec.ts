@@ -5,6 +5,9 @@ import { CategoriesService } from './categories.service';
 
 describe('Contacts container', () => {
 
+    let _$q: angular.IQService;
+    let _categoriesService: CategoriesService;
+
     let _fakeBackend = {
         getCategories: jasmine.createSpy('getCategories')
     };
@@ -21,19 +24,22 @@ describe('Contacts container', () => {
       .value('fakeBackend', _fakeBackend)
       .value('categoryConverter', _categoryConverter);
     angular.mock.module('app');
+      angular.mock.inject((categoriesService: CategoriesService, $q: angular.IQService) => {
+          _$q = $q;
+          _categoriesService = categoriesService;
+      });
+
   });
 
-  it('should exist', angular.mock.inject((categoriesService: CategoriesService) => {
-    expect(categoriesService).toBeDefined();
-  }));
+  it('should exist', () => {
+    expect(_categoriesService).toBeDefined();
+  });
 
 
-  it('should call `fakeBackend.getCategories`when getCategoriesFromLs called', angular.mock.inject((
-    categoriesService: CategoriesService,
-    $q: angular.IQService) => {
-    _fakeBackend.getCategories.and.returnValue($q.resolve());
-    categoriesService.getCategoriesFromLs();
+  it('should call `fakeBackend.getCategories`when getCategoriesFromLs called', () => {
+    _fakeBackend.getCategories.and.returnValue(_$q.resolve());
+    _categoriesService.getCategoriesFromLs();
     expect(_fakeBackend.getCategories).toHaveBeenCalled();
-}));
+  });
 
 });
