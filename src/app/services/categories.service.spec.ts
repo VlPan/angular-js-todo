@@ -3,10 +3,12 @@ import 'angular-mocks';
 import { CategoriesService } from './categories.service';
 
 
-describe('Contacts container', () => {
+describe('Coategories Service', () => {
 
     let _$q: angular.IQService;
     let _categoriesService: CategoriesService;
+    let timerCallback = jasmine.createSpy('timerCallback');
+
 
     let _fakeBackend = {
         getCategories: jasmine.createSpy('getCategories'),
@@ -30,7 +32,7 @@ describe('Contacts container', () => {
           _$q = $q;
           _categoriesService = categoriesService;
       });
-      jasmine.DEFAULT_TIMEOUT_INTERVAL = 9000;
+      jasmine.DEFAULT_TIMEOUT_INTERVAL = 6000;
   });
 
     afterEach(function() {
@@ -47,24 +49,5 @@ describe('Contacts container', () => {
     _categoriesService.getCategoriesFromLs();
     expect(_fakeBackend.getCategories).toHaveBeenCalled();
   });
-
-    it('should call `categoryConverter.convertCategories` when categories is not empty', (done) => {
-        _fakeBackend.set.and.callFake(()=>{
-            localStorage.setItem('categories', JSON.stringify(['test']));
-        });
-        _fakeBackend.getCategories.and.returnValue(_$q.resolve());
-
-        _categoriesService.getCategoriesFromLs().then((categories: string[])=>{
-            expect(categories.length).toBe(1);
-            expect(_categoryConverter.convertCategories).toHaveBeenCalled();
-            done();
-        });
-    });
-
-    it('takes a long time', (done) => {
-        setTimeout(function() {
-            done();
-        }, 3000);
-    });
 
 });

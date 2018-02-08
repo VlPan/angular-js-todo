@@ -28,7 +28,7 @@ export class FakeBackendService{
     }
 
     getUsers(){
-        return this.$q((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             let users: FinalUser[];
             setTimeout(() => {
                 users = this.get('users');

@@ -2,7 +2,7 @@ import * as angular from 'angular';
 import 'angular-mocks';
 import { AddTodoContainer } from './add-todo.container';
 
-describe('AddContactForm component', () => {
+describe('AddTodoForm component', () => {
 
     let _todoService = {
         add: jasmine.createSpy('add')
