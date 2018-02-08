@@ -100,7 +100,7 @@ describe('Fake backend Service', () => {
 
 
     it('should get Users', () => {
-        var users: Object[];
+        var users: any;
         _fakeBackend.set('users', [{firstname: 'hello', lastname: 'world'}]);
         _fakeBackend.getUsers().then((_users: Object[])=>{
             users = _users;
@@ -146,7 +146,7 @@ describe('Fake backend Service', () => {
         scope.$digest();
     });
 
-    
+
     it('should set Convert Users  and set them in localStorage', () => {
         _fakeBackend.setUsers(users).then((convertedUsers:any)=>{
             expect(convertedUsers[0]).toEqual(usersInServer[0]);
