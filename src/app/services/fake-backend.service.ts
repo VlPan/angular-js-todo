@@ -28,7 +28,7 @@ export class FakeBackendService{
     }
 
     getUsers(){
-        return new Promise((resolve, reject) => {
+        return this.$q((resolve, reject) => {
             let users: FinalUser[];
             setTimeout(() => {
                 users = this.get('users');
@@ -42,8 +42,7 @@ export class FakeBackendService{
     }
 
     getTodosByUser(user: FinalUser){
-        console.log(user.name);
-        console.log(user.password);
+      
         return this.$q((resolve, reject)=>{
             let todos: Todo[];
             setTimeout(() => {
