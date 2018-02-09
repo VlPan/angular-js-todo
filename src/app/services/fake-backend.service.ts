@@ -26,7 +26,7 @@ export class FakeBackendService{
     has(name: string): boolean {
         return !!this.get(name);
     }
-
+    
     getUsers(){
         return this.$q((resolve, reject) => {
             let users: FinalUser[];

@@ -22,7 +22,6 @@ export class CategoriesService {
                 .then((categories: string[]) => {
                     if(categories instanceof Array && categories.length !== 0){
 
-                        // this.styledCategories$.next(this.setStyledCategory(categories));
                         this.styledCategories$.next(this.categoryConverter.convertCategories(categories));
                         return categories;
                         
