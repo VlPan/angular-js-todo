@@ -31,15 +31,12 @@ describe('Todos converter Service', ()=>{
 
 
     beforeEach(()=>{
-        angular
-            .module('app', [])
-            .service('_todoConverter', TodoConverterService);
-
-        angular.mock.module('app');
-        angular.mock.inject((_todoConverter: TodoConverterService) => {
-            todoConverter = _todoConverter;
-        });
+        angular.mock.module('application.todos');
     });
+
+    beforeEach(inject((_todoConverter_: TodoConverterService) => {
+        todoConverter = _todoConverter_;
+    }));
 
     it('should convert user from DTO', ()=>{
         expect(todoConverter.fromDto(todoInServer)).toEqual(todo);

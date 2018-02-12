@@ -9,19 +9,17 @@ let layoutService: LayoutService;
 
 describe('Layout Service', () => {
 
-    beforeEach(() => {
+    
+    beforeEach(()=>{
+        angular.mock.module('application.todos');
+    });
+
+    beforeEach(inject((_layoutService_: LayoutService) => {
+        layoutService = _layoutService_;
+
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 6000;
         jasmine.clock().install();
-        angular
-            .module('app', [])
-            .service('_layoutService', LayoutService);
-
-
-        angular.mock.module('app');
-        angular.mock.inject((_layoutService: LayoutService) => {
-            layoutService = _layoutService;
-        });
-    });
+    }));
 
     afterEach(function() {
         jasmine.clock().uninstall();

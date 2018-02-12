@@ -10,8 +10,8 @@ import {IRootScopeService } from 'angular';
 
 describe('Fake backend Service', () => {
 
-    let _$q: angular.IQService;
-    let _fakeBackend: FakeBackendService;
+    let $q: angular.IQService;
+    let fakeBackend: FakeBackendService;
     let scope: IRootScopeService;
     
 
@@ -46,26 +46,19 @@ describe('Fake backend Service', () => {
     let user: FinalUser = users[0];
 
 
-    
 
-    beforeEach(() => {
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = 6000;
-        jasmine.clock().install();
-        angular
-            .module('app', [])
-            .service('fakeBackend', FakeBackendService)
-            .service('userConverter', UserConverterService)
-            .service('todoConverter', TodoConverterService);
-
-        angular.mock.module('app');
-        angular.mock.inject((fakeBackend: FakeBackendService, $q: angular.IQService, _$rootScope_:IRootScopeService) => {
-            _$q = $q;
-            _fakeBackend = fakeBackend;
-            scope = _$rootScope_.$new();
-        });
+    beforeEach(()=>{
+        angular.mock.module('application.todos');
     });
 
+    beforeEach(inject((_fakeBackend_: FakeBackendService, _$q_: angular.IQService, _$rootScope_:IRootScopeService) => {
+        $q = _$q_;
+        fakeBackend = _fakeBackend_;
+        scope = _$rootScope_.$new();
 
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = 6000;
+        jasmine.clock().install();
+    }));
 
     afterEach(function() {
         jasmine.clock().uninstall();
@@ -74,7 +67,7 @@ describe('Fake backend Service', () => {
     });
 
     it('should set into localStorage', () => {
-        _fakeBackend.set('test', ['test']);
+        fakeBackend.set('test', ['test']);
         let result = JSON.parse(localStorage.getItem('test'));
         expect(result[0]).toBe('test');
     });
@@ -82,14 +75,14 @@ describe('Fake backend Service', () => {
 
     it('should get from localStorage', () => {
         localStorage.setItem('test', JSON.stringify(['test']));
-        let result = _fakeBackend.get('test');
+        let result = fakeBackend.get('test');
         expect(result[0]).toBe('test');
     });
 
 
     it('should remove from localStorage', () => {
         localStorage.setItem('test', JSON.stringify(['test']));
-        _fakeBackend.remove('test');
+        fakeBackend.remove('test');
         let result = JSON.parse(localStorage.getItem('test'));
         expect(result).toBe(null);
     });
@@ -97,8 +90,8 @@ describe('Fake backend Service', () => {
 
     it('should get Users', (done) => {
         var users: any;
-        _fakeBackend.set('users', usersInServer);
-        _fakeBackend.getUsers().then((_users: Object[])=>{
+        fakeBackend.set('users', usersInServer);
+        fakeBackend.getUsers().then((_users: Object[])=>{
             users = _users;
             expect(users).toEqual(_users);
             done();
@@ -111,7 +104,7 @@ describe('Fake backend Service', () => {
     it('should get Users and if they are empty set them', (done) => {
         var users: any;
         localStorage.removeItem('users');
-        _fakeBackend.getUsers().then((_users: Object[])=>{
+        fakeBackend.getUsers().then((_users: Object[])=>{
             users = JSON.parse(localStorage.getItem('users'));
             expect(users).toEqual([]);
             done();
@@ -124,7 +117,7 @@ describe('Fake backend Service', () => {
 
     it('should get todos by user', (done) => {
         localStorage.setItem('users', JSON.stringify(usersInServer));
-       _fakeBackend.getTodosByUser(user).then((todos: any) => {
+       fakeBackend.getTodosByUser(user).then((todos: any) => {
             expect(todos).toEqual(usersInServer[0].todosServer);
             done();
        });
@@ -134,14 +127,14 @@ describe('Fake backend Service', () => {
 
    
     it('should find users by props', ()=>{
-        let user = _fakeBackend.findUserByProps(users, {name: 'John', 'password': '123'});
+        let user = fakeBackend.findUserByProps(users, {name: 'John', 'password': '123'});
         expect(user).toEqual(users[0]);
     });
 
 
     it('should generate categories', () => {
         let categories: string[] = ['test'];
-        _fakeBackend.generateCategories(categories);
+        fakeBackend.generateCategories(categories);
         categories = JSON.parse(localStorage.getItem('categories'));
         expect(categories[0]).toBe('test');
     });
@@ -149,7 +142,7 @@ describe('Fake backend Service', () => {
 
     it('should get categories', (done) => {
         localStorage.setItem('categories', JSON.stringify(['test']));
-        _fakeBackend.getCategories().then((categories: string[]) => {
+        fakeBackend.getCategories().then((categories: string[]) => {
             expect(categories[0]).toBe('test');
             done();
         });
@@ -159,7 +152,7 @@ describe('Fake backend Service', () => {
 
 
     it('should set Convert Users  and set them in localStorage', (done) => {
-        _fakeBackend.setUsers(users).then((convertedUsers:any)=>{
+        fakeBackend.setUsers(users).then((convertedUsers:any)=>{
             expect(convertedUsers[0]).toEqual(usersInServer[0]);
             done();
         });
@@ -169,6 +162,6 @@ describe('Fake backend Service', () => {
 
     it('should has users', ()=>{
         localStorage.setItem('users', JSON.stringify(usersInServer));
-        expect(_fakeBackend.has('users')).toBe(true);
+        expect(fakeBackend.has('users')).toBe(true);
     });
 });

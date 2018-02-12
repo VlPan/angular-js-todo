@@ -38,17 +38,13 @@ describe('User converter Service', ()=>{
     };
 
 
-   beforeEach(()=>{
-       angular
-           .module('app', [])
-           .service('_userConverter', UserConverterService)
-           .service('todoConverter', TodoConverterService);
+    beforeEach(()=>{
+        angular.mock.module('application.todos');
+    });
 
-       angular.mock.module('app');
-       angular.mock.inject((_userConverter: UserConverterService) => {
-           userConverter = _userConverter;
-       });
-   });
+    beforeEach(inject((_userConverter_: UserConverterService) => {
+        userConverter = _userConverter_;
+    }));
 
    it('should convert user from DTO', ()=>{
        expect(userConverter.fromDto(userInServer)).toEqual(user);
