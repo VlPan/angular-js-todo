@@ -1,11 +1,11 @@
-import { CategoriesService } from './categories.service';
-import { FinalUser } from './../models/FinalUser';
-import { FakeBackendService } from './fake-backend.service';
-import { User } from '../models/User';
-import { Todo } from '../models/Todo';
+import { CategoriesService } from '../categories/categories.service';
+import { FinalUser } from '../../models/FinalUser';
+import { FakeBackendService } from '../fake-backend/fake-backend.service';
+import { User } from '../../models/User';
+import { Todo } from '../../models/Todo';
 import * as Rx from 'rxjs/Rx';
-import { StyledCategory } from '../models/StyledCategory';
-import {UserConverterService} from './user-converter.service';
+import { StyledCategory } from '../../models/StyledCategory';
+import {UserConverterService} from '../user-converter/user-converter.service';
 
 export class UserService {
     static selector = 'userService';

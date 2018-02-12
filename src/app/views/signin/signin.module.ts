@@ -4,12 +4,12 @@ import * as angular from 'angular';
 
 import { SignIn } from '../../components/signin/signin.component';
 
-import { UserService } from '../../services/users.service';
+import { UserService } from '../../services/users/users.service';
 
 import { routing } from './signin.routes';
-import { FakeBackendService } from '../../services/fake-backend.service';
-import {UserConverterService} from '../../services/user-converter.service';
-import {TodoConverterService} from '../../services/todo-converter.service';
+import { FakeBackendService } from '../../services/fake-backend/fake-backend.service';
+import {UserConverterService} from '../../services/user-converter/user-converter.service';
+import {TodoConverterService} from '../../services/todo-converter/todo-converter.service';
 
 
 export const moduleName =

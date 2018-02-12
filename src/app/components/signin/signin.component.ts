@@ -2,7 +2,7 @@ import './signin.component.scss';
 import './btn.component.scss';
 import './loader.component.scss';
 
-import { UserService } from '../../services/users.service';
+import { UserService } from '../../services/users/users.service';
 
 
 

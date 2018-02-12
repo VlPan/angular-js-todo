@@ -1,7 +1,7 @@
 import * as angular from 'angular';
-import { TodoService } from '../../services/todo.service';
+import { TodoService } from '../../services/todo/todo.service';
 import './add-todo.container.scss';
-import {LayoutService} from './../../services/layout.service';
+import {LayoutService} from '../../services/layout/layout.service';
 import { Category } from '../../models/Category';
 
 

@@ -1,4 +1,4 @@
-import { UserService } from './../../services/users.service';
+import { UserService } from '../../services/users/users.service';
 
 import './hw-header.component.scss';
 

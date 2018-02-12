@@ -1,4 +1,4 @@
-import { StyledCategory } from './../models/StyledCategory';
+import { StyledCategory } from '../../models/StyledCategory';
 
 export class CategoryConverterService {
     static selector = 'categoryConverter';

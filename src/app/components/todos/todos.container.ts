@@ -1,7 +1,7 @@
 import './todos.container.scss';
-import { TodoService } from '../../services/todo.service';
-import { UserService } from '../../services/users.service';
-import { LayoutService } from './../../services/layout.service';
+import { TodoService } from '../../services/todo/todo.service';
+import { UserService } from '../../services/users/users.service';
+import { LayoutService } from '../../services/layout/layout.service';
 
 
 class TodosController {

@@ -8,16 +8,16 @@ import { HeaderComponent } from './../../components/hw-header/hw-header.componen
 import { TodosContainer } from '../../components/todos/todos.container';
 import { AddTodoContainer } from '../../components/add-todo/add-todo.container';
 
-import { UserService } from '../../services/users.service';
-import { TodoService } from '../../services/todo.service';
-import { LayoutService } from './../../services/layout.service';
-import {TodoConverterService} from '../../services/todo-converter.service';
-import {UserConverterService} from '../../services/user-converter.service';
+import { UserService } from '../../services/users/users.service';
+import { TodoService } from '../../services/todo/todo.service';
+import { LayoutService } from '../../services/layout/layout.service';
+import {TodoConverterService} from '../../services/todo-converter/todo-converter.service';
+import {UserConverterService} from '../../services/user-converter/user-converter.service';
 
 import { routing } from './todos.routes';
-import { FakeBackendService } from '../../services/fake-backend.service';
-import { CategoriesService } from '../../services/categories.service';
-import {CategoryConverterService} from '../../services/category-converter.service';
+import { FakeBackendService } from '../../services/fake-backend/fake-backend.service';
+import { CategoriesService } from '../../services/categories/categories.service';
+import {CategoryConverterService} from '../../services/category-converter/category-converter.service';
 
 
 export const moduleName =

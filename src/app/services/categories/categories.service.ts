@@ -1,7 +1,7 @@
-import { StyledCategory } from './../models/StyledCategory';
-import {FakeBackendService} from './fake-backend.service';
+import { StyledCategory } from '../../models/StyledCategory';
+import {FakeBackendService} from '../fake-backend/fake-backend.service';
 import * as Rx from 'rxjs/Rx';
-import {CategoryConverterService} from './category-converter.service';
+import {CategoryConverterService} from '../category-converter/category-converter.service';
 
 export class CategoriesService {
     static selector = 'categoriesService';

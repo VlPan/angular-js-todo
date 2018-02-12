@@ -87,8 +87,8 @@ describe('Coategories Service', () => {
 
   it('should call convertCategories when set Styled Category', ()=>{
     let categories = ['work', 'home'];
-    let convertedCats = _categoriesService.setStyledCategory(categories);
-    expect(_categoryConverter.convertCategories).toHaveBeenCalled;
+    _categoriesService.setStyledCategory(categories);
+    expect(_categoryConverter.convertCategories).toHaveBeenCalled();
   });
 
 });

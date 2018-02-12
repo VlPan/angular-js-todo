@@ -1,11 +1,10 @@
 import * as angular from 'angular';
 import 'angular-mocks';
 import { FakeBackendService } from './fake-backend.service';
-import {UserConverterService} from './user-converter.service';
-import {TodoConverterService} from './todo-converter.service';
-import { FinalUser } from '../models/FinalUser';
-import { Todo } from '../models/Todo';
-import { IScope, IRootScopeService } from 'angular';
+import {UserConverterService} from '../user-converter/user-converter.service';
+import {TodoConverterService} from '../todo-converter/todo-converter.service';
+import { FinalUser } from '../../models/FinalUser';
+import {IRootScopeService } from 'angular';
 
 
 

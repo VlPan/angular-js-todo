@@ -1,6 +1,6 @@
-import { Todo } from '../models/Todo';
-import { FinalUser } from '../models/FinalUser';
-import {UserConverterService} from './user-converter.service';
+import { Todo } from '../../models/Todo';
+import { FinalUser } from '../../models/FinalUser';
+import {UserConverterService} from '../user-converter/user-converter.service';
 export class FakeBackendService{
     static selector = 'fakeBackend';
 

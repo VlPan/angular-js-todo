@@ -1,9 +1,9 @@
 import { StyledCategory } from './../../models/StyledCategory';
-import { CategoriesService } from './../../services/categories.service';
-import { LayoutService } from './../../services/layout.service';
+import { CategoriesService } from '../../services/categories/categories.service';
+import { LayoutService } from '../../services/layout/layout.service';
 import './add-todo-form.component.scss';
 import * as angular from 'angular';
-import { UserService } from '../../services/users.service';
+import { UserService } from '../../services/users/users.service';
 class AddTodoFormController {
   name: string;
   body: string;

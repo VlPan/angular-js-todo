@@ -1,6 +1,6 @@
-import { FinalUser } from './../models/FinalUser';
+import { FinalUser } from '../../models/FinalUser';
 
-import {TodoConverterService} from './todo-converter.service';
+import {TodoConverterService} from '../todo-converter/todo-converter.service';
 export class UserConverterService{
     static selector = 'userConverter';
 

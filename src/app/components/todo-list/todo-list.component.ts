@@ -1,9 +1,9 @@
 import { StyledCategory } from './../../models/StyledCategory';
-import { LayoutService } from './../../services/layout.service';
+import { LayoutService } from '../../services/layout/layout.service';
 
 import './todo-list.component.scss';
 
-import { UserService } from '../../services/users.service';
+import { UserService } from '../../services/users/users.service';
 import {Todo} from '../../models/Todo';
 
 class TodoListController {
