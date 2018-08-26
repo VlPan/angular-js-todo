@@ -3,6 +3,10 @@ import './btn.component.scss';
 import './loader.component.scss';
 
 import { UserService } from '../../services/users/users.service';
+import { Boverage } from '../../OOP-Templates/Decorator/Boverage';
+import { Expresso } from './../../OOP-Templates/Decorator/drinks/Expresso';
+import { Mocha } from '../../OOP-Templates/Decorator/decorators/Mocha';
+import { Soy } from '../../OOP-Templates/Decorator/decorators/Soy';
 
 
 
@@ -19,6 +23,13 @@ class SignInController {
 
     $onInit(){
         this.userService.checkIfLogged();
+
+        // test
+        let boverage = new Expresso();
+        boverage = new Mocha(boverage);
+        boverage = new Mocha(boverage);
+        boverage = new Soy(boverage);
+        console.log(boverage.cost());
     }
     
     submit(name: string, password: string): void {

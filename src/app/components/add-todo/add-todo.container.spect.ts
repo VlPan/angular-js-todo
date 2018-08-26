@@ -25,12 +25,12 @@ describe('AddTodoForm component', () => {
     })
 
     beforeEach((inject(($componentController: any, _$q_:angular.IQService, _$rootScope_:IRootScopeService)=>{
-      
+        $q = _$q_;
+        scope = _$rootScope_.$new();
         ctrl = $componentController(AddTodoContainer.selector, {}, {
             fetchData: ()=>{}
         });
-        $q = _$q_;
-        scope = _$rootScope_.$new();
+
 
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 6000;
         jasmine.clock().install();
